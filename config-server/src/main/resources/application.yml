@@ -1,0 +1,13 @@
+# spring.profiles.active: native
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/MuizMahdi/EHR-Route
+          search-paths: config-server/src/main/resources/configs

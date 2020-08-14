@@ -1,0 +1,11 @@
+spring:
+  application.name: ehroute-discovery-server
+
+server:
+  port: 8761
+
+# Register Eureka as a discovery service instead of a Client service
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
