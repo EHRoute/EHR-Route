@@ -20,10 +20,8 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-		</dependency>
+
+		<!-- Spring Starter -->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -31,6 +29,7 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -42,6 +41,28 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+
+		<!-- Spring Cloud -->
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+
+
+		<!-- Cloud Config -->
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<dependencyManagement>

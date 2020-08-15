@@ -2,4 +2,12 @@
 /workspace.xml
 .idea/
 lib/
-
+.mvn/
+.settings/
+target/
+.project
+.classpath
+*.iml
+mvnw
+mvnw.cmd
+HELP.md

@@ -1,5 +1,6 @@
 server:
   port: 8082
+  servlet.context-path: /patient
 
 eureka:
   client:

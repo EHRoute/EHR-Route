@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: patient-service
+  cloud:
+    config:
+      uri: http://config-server
+      discovery:
+        enabled: true
+        # Overwrite the Configuration Server's "configserver" default name with the "config-server" custom name
+        service-id: config-server
+
+management.security.enabled: false
