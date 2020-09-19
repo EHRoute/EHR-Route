@@ -66,12 +66,13 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-jwt</artifactId>
+			<version>1.1.1.RELEASE</version>
 		</dependency>
-		
+
 		
 		<!-- Spring Cloud -->
 		
@@ -110,7 +111,7 @@
 			<optional>true</optional>
 		</dependency>
 		
-	</dependencies>
+	</dependencies>	
 
 	<dependencyManagement>
 		<dependencies>
@@ -129,6 +130,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

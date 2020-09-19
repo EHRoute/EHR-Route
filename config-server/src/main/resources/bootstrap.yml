@@ -1,13 +1,15 @@
 spring:
   profiles:
-    active: native
+   active: native
   application:
     name: config-server
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/MuizMahdi/EHR-Route.git
-          search-paths: server-configs/
+          uri: https://github.com/MuizMahdi/EHR-Route
+          timeout: 4
+          clone-on-start: true
+          search-paths: config-server/src/main/resources/server-configs/
         native:
           search-locations: classpath:server-configs/

@@ -1,4 +1,6 @@
 package ehroute.providerservice;
+import ehroute.providerservice.configuration.ServiceConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,13 +15,17 @@ import java.util.HashMap;
 @RequestMapping("test")
 public class TestController {
 
-    @Value("${TestMessage: Default TestingCloudConfig}")
-    private String test;
+    private ServiceConfig serviceConfig;
+    
+    @Autowired
+    public TestController(ServiceConfig serviceConfig) {
+        this.serviceConfig = serviceConfig;
+    }
 
     @GetMapping
     public Mono<String> getTestData() {
         /*return Mono.just(new HashMap() {{ put("foo", 1); put("bar", 2); put("foo2", 3); }});*/
-        return Mono.just(test);
+        return Mono.just(serviceConfig.getTestMessage());
     }
 
 }

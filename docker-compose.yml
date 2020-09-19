@@ -1,0 +1,86 @@
+version: '3'
+
+services:
+  
+  config:
+    image: /config-server
+    ports:
+      - 8888:8888
+    networks:
+      - net
+    mem_limit: 512MB
+    hostname: config
+    container_name: config
+  
+  discovery:
+    image: /discovery-service
+    ports:
+      - 8761:8761
+    networks:
+      - net
+    mem_limit: 512MB
+    depends_on:
+      - config
+    hostname: discovery
+    container_name: discovery
+
+  gateway:
+    image: /gateway-service
+    ports:
+      - 8080:8080
+    networks:
+      - net
+    mem_limit: 512MB
+    depends_on:
+      - config
+      - discovery
+    hostname: gateway
+    container_name: gateway
+ 
+  auth:
+    image: /auth-service
+    ports:
+      - 8083:8083
+    networks:
+      - net
+    mem_limit: 512MB
+    depends_on:
+      - config
+      - discovery
+      - gateway
+    hostname: auth
+    container_name: auth
+
+  patient:
+    image: /patient-service
+    ports:
+      - 8082:8082
+    networks:
+      - net
+    mem_limit: 512MB
+    depends_on:
+      - config
+      - discovery
+      - gateway
+      - auth
+    hostname: patient
+    container_name: patient
+
+  provider:
+    image: /provider-service
+    ports:
+      - 8081:8081
+    networks:
+      - net
+    mem_limit: 512MB
+    depends_on:
+      - config
+      - discovery
+      - gateway
+      - auth
+    hostname: provider
+    container_name: provider
+
+networks:
+  net:
+    driver: bridge
