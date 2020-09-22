@@ -11,5 +11,6 @@ spring:
           timeout: 4
           clone-on-start: true
           search-paths: config-server/src/main/resources/server-configs/
+          basedir: ./server-configs/
         native:
           search-locations: classpath:server-configs/

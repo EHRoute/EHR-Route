@@ -3,7 +3,9 @@ version: '3'
 services:
   
   config:
-    image: /config-server
+    build: .
+    dockerfile: config-server
+    #image: /config-server
     ports:
       - 8888:8888
     networks:
@@ -13,7 +15,9 @@ services:
     container_name: config
   
   discovery:
-    image: /discovery-service
+    build: .
+    dockerfile: discovery-service
+    #image: /discovery-service
     ports:
       - 8761:8761
     networks:
@@ -25,7 +29,9 @@ services:
     container_name: discovery
 
   gateway:
-    image: /gateway-service
+    build: .
+    dockerfile: gateway-service
+    #image: /gateway-service
     ports:
       - 8080:8080
     networks:
@@ -38,7 +44,9 @@ services:
     container_name: gateway
  
   auth:
-    image: /auth-service
+    build: .
+    dockerfile: auth-service
+    #image: /auth-service
     ports:
       - 8083:8083
     networks:
@@ -52,7 +60,9 @@ services:
     container_name: auth
 
   patient:
-    image: /patient-service
+    build: .
+    dockerfile: patient-service
+    #image: /patient-service
     ports:
       - 8082:8082
     networks:
@@ -67,7 +77,9 @@ services:
     container_name: patient
 
   provider:
-    image: /provider-service
+    build: .
+    dockerfile: provider-service
+    #image: /provider-service
     ports:
       - 8081:8081
     networks:

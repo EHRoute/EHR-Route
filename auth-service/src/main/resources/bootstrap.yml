@@ -3,10 +3,9 @@ spring:
     name: auth-service
   cloud:
     config:
-      uri: http://config-server
-      discovery:
-        enabled: true
-        # Overwrite the Configuration Server's "configserver" default name with the "config-server" custom name
-        service-id: config-server
-
-management.security.enabled: false
+      uri: http://localhost:8888
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        max-interval: 15000
+        initial-interval: 5000
