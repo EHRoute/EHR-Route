@@ -5,7 +5,7 @@ set -ex
 mvn clean install
 
 # Build images and containers
-docker-compose up
+docker-compose up --build
 
 # Using a maven docker image building plugin
 #mvn -f ./config-server/pom.xml  -Pdockerimage docker:build

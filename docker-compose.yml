@@ -3,9 +3,9 @@ version: '3'
 services:
   
   config:
-    build: .
-    dockerfile: config-server
-    #image: /config-server
+    build:
+      context: ./config-server
+      dockerfile: dockerfile
     ports:
       - 8888:8888
     networks:
@@ -15,9 +15,9 @@ services:
     container_name: config
   
   discovery:
-    build: .
-    dockerfile: discovery-service
-    #image: /discovery-service
+    build:
+      context: ./discovery-service
+      dockerfile: dockerfile
     ports:
       - 8761:8761
     networks:
@@ -27,11 +27,12 @@ services:
       - config
     hostname: discovery
     container_name: discovery
+    command: ["./wait-for-it.sh","config:8888","--timeout=100","--","/usr/local/bin/start.sh"]
 
   gateway:
-    build: .
-    dockerfile: gateway-service
-    #image: /gateway-service
+    build:
+      context: ./gateway-service
+      dockerfile: dockerfile
     ports:
       - 8080:8080
     networks:
@@ -42,11 +43,12 @@ services:
       - discovery
     hostname: gateway
     container_name: gateway
+    command: ["./wait-for-it.sh","discovery:8761","--timeout=100","--","/usr/local/bin/start.sh"]
  
   auth:
-    build: .
-    dockerfile: auth-service
-    #image: /auth-service
+    build:
+      context: ./auth-service
+      dockerfile: dockerfile
     ports:
       - 8083:8083
     networks:
@@ -58,11 +60,12 @@ services:
       - gateway
     hostname: auth
     container_name: auth
+    command: ["./wait-for-it.sh","gateway:8080","--timeout=100","--","/usr/local/bin/start.sh"]
 
   patient:
-    build: .
-    dockerfile: patient-service
-    #image: /patient-service
+    build:
+      context: ./patient-service
+      dockerfile: dockerfile
     ports:
       - 8082:8082
     networks:
@@ -75,11 +78,12 @@ services:
       - auth
     hostname: patient
     container_name: patient
+    command: ["./wait-for-it.sh","gateway:8080","--timeout=100","--","/usr/local/bin/start.sh"]
 
   provider:
-    build: .
-    dockerfile: provider-service
-    #image: /provider-service
+    build:
+      context: ./provider-service
+      dockerfile: dockerfile
     ports:
       - 8081:8081
     networks:
@@ -92,6 +96,7 @@ services:
       - auth
     hostname: provider
     container_name: provider
+    command: ["./wait-for-it.sh","gateway:8080","--timeout=100","--","/usr/local/bin/start.sh"]
 
 networks:
   net:
