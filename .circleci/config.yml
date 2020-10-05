@@ -108,7 +108,7 @@ jobs:
 
       # Cache dependencies
       - save_cache:
-          path: ~/.m2
+          paths: ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # Package application
