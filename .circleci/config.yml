@@ -101,17 +101,14 @@ jobs:
 
       # Restore dependencies cache
       - restore_cache:
-        keys: v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          #-
-        
+          key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: mvn dependency:go-offline
 
       # Cache dependencies
       - save_cache:
-          paths: ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
-
+          paths: ~/.m2
+          
       # Package application
       - run: mvn clean install
 
