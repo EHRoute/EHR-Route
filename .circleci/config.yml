@@ -101,9 +101,10 @@ jobs:
 
       # Restore dependencies cache
       - restore_cache:
-        key: v1-dependencies-{{ checksum "pom.xml" }}
+        keys: v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
-          #- v1-dependencies-
+          #-
+        
       - run: mvn dependency:go-offline
 
       # Cache dependencies
