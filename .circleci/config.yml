@@ -124,7 +124,7 @@ workflows:
   ############################################################
 
   config-server:
-    when: << pipeline.parameters.config-server >>
+    # when: << pipeline.parameters.config-server >>
     jobs:
       config-server-build:
         package_name: config-server
