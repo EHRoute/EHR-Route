@@ -130,7 +130,7 @@ workflows:
       ################################
       ## Build process
       ################################
-      - build:
+      build:
           name: config-server-build
           package_name: config-server
           docker:
