@@ -113,10 +113,17 @@ jobs:
       - run: mvn clean install
 
       # Build docker image from dockerfile
-      - run: docker build -t config-server-img .
+      #- run: docker build -t config-server-img .
 
       # Push docker image to DockerHub
-      - run: docker push config-server-img
+      #- run: docker push config-server-img
+
+      # Build and push Docker image
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t EHRoute/config-server:$TAG .
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push EHRoute/config-server:$TAG
 
       # store raw contents of src code
 #      - store_artifacts:
