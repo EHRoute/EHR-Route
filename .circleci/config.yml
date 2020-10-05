@@ -126,7 +126,7 @@ workflows:
   config-server:
     when: << pipeline.parameters.config-server >>
     jobs:
-      - build:
+      config-server-build:
         package_name: config-server
         docker:
           - image: circleci/openjdk:11.0.1-jdk
