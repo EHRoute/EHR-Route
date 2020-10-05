@@ -184,15 +184,6 @@ workflows:
                 path: target/classes
                 destination: config-server-artifacts
 
-      ################################
-      ## Deployment process
-      ################################
-      deploy:
-          name: config-server-deploy
-          package_name: config-server
-          requires:
-            - config-server-build
-
 #
 #    discovery-service:
 #        when: << pipeline.parameters.discovery-service >>
