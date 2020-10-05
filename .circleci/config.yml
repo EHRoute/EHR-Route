@@ -81,12 +81,12 @@ jobs:
     steps:
 
       - checkout:
-        path: ~/project
+          path: ~/project
 
       - setup_remote_docker:
           docker_layer_caching: true
 
-      - run: echo "Build << parameters.package_name >> ..."
+      - run: echo "Building << parameters.package_name >> ..."
 
 #      - persist_to_workspace:
 #        root: ~/project
@@ -101,14 +101,14 @@ jobs:
 
       # Restore dependencies cache
       - restore_cache:
-        keys: v1-dependencies-{{ checksum "pom.xml" }}
+        key: v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
           #- v1-dependencies-
       - run: mvn dependency:go-offline
 
       # Cache dependencies
       - save_cache:
-          path: "~/.m2"
+          path: ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # Package application
