@@ -109,7 +109,7 @@ jobs:
           command: echo "Deploying << parameters.package_name >> (<< pipeline.parameters.deploy >>) ..."
 
 workflows:
-  version: 2
+  version: 2.1
 
   # The main workflow responsible for triggering all other workflows
   # in which changes are detected.
