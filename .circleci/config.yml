@@ -41,9 +41,9 @@ parameters:
 
 
 executors:
-  node:
+  jdk11:
     docker:
-      - image: circleci/node
+      - image: circleci/openjdk:11.0.1-jdk
 
 jobs:
   trigger-workflows:
@@ -70,27 +70,76 @@ jobs:
       package_name:
         type: string
 
-    docker:
-      - image: circleci/openjdk:11.0.1-jdk
-
+    executor: jdk11
     working_directory: ~/project/<< parameters.package_name >>
 
-    steps:
-      - checkout:
-          path: ~/project
-      # This step is added only to show that we are in the package directory
-      - run:
-          name: Content
-          command: |
-            cat README.md
-            echo "<< parameters.package_name >> built." > build.txt
-      - run:
-          name: Build
-          command: echo "Build << parameters.package_name >> ..."
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - << parameters.package_name >>
+    environment:
+      # Limit max heap to 512MB for Heroku's max memory limit on free apps
+      JVM_OPTS: -Xmx512m
+      TERM: dumb
+      steps:
+
+        - checkout:
+            path: ~/project
+
+        # This step is added only to show that we are in the package directory
+        - run:
+            name: Content
+            command: |
+              cat README.md
+              echo "<< parameters.package_name >> built." > build.txt
+
+        - run:
+            name: Build
+            command: echo "Build << parameters.package_name >> ..."
+
+        - persist_to_workspace:
+            root: ~/project
+            paths:
+              - << parameters.package_name >>
+
+        # Use layer caching
+        - setup_remote_docker:
+            - docker_layer_caching: true
+
+        # Login to DockerHub to push the built image shortly
+        - run:
+            name: Login to DockerHub
+            command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+        # Decrypt app properties
+        - run:
+            name: Decrpyt Properties
+            command: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.yml.secrets -out src/main/resources/application.yml -k $SECRETS_KEY
+
+        # Restore dependencies cache
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "pom.xml" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
+        - run: mvn dependency:go-offline
+
+        # Cache dependencies
+        - save_cache:
+            paths:
+              - ~/.m2
+            key: v1-dependencies-{{ checksum "pom.xml" }}
+
+        # Package application
+        - run: mvn clean install
+
+        # Build docker image from dockerfile
+        - run: docker build -t config-server-img .
+
+        # Push docker image to DockerHub
+        - run: docker push config-server-img
+
+        # store raw contents of src code
+        - store_artifacts:
+          path: target/classes
+          destination: config-server-artifacts
+
 
   deploy:
     parameters:
@@ -127,13 +176,11 @@ workflows:
   ############################################################
 
   config-server:
-    when: << pipeline.parameters.config-server >>
+    # when: << pipeline.parameters.config-server >>
     jobs:
       - build:
-          name: config-server-build
-          package_name: config-server
-
-#        name: config-server-build
+        package_name: config-server
+        name: config-server-build
 #        package_name: config-server
 #        docker:
 #          - image: circleci/openjdk:11.0.1-jdk
