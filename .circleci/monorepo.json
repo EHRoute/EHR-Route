@@ -1,0 +1,12 @@
+{
+  "root": "",
+  "pages": 3,
+  "packages": {
+      "auth-service": ["auth-service/"],
+      "config-server": ["config-server/"],
+      "discovery-service": ["discovery-service/"],
+      "gateway-service": ["gateway-service/"],
+      "patient-service": ["patient-service/"],
+      "provider-service": ["provider-service/"]
+  }
+}
