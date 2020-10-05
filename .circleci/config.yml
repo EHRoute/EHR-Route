@@ -44,6 +44,9 @@ executors:
   jdk11:
     docker:
       - image: circleci/openjdk:11.0.1-jdk
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
 
 jobs:
   trigger-workflows:
@@ -92,9 +95,6 @@ jobs:
 
       - setup_remote_docker:
           version: 19.03.13
-
-      # Login to DockerHub to push the built image shortly
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
       # Decrypt app properties
       # - run: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.yml.secrets -out src/main/resources/application.yml -k $DECRYPTION_KEY
