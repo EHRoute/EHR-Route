@@ -42,6 +42,7 @@ parameters:
 
 executors:
   jdk11:
+    machine: true
     docker:
       - image: circleci/openjdk:11.0.1-jdk
 
@@ -72,7 +73,6 @@ jobs:
 
     executor: jdk11
     working_directory: ~/project/<< parameters.package_name >>
-    machine: true
 
     environment:
       # Limit max heap to 512MB for Heroku's max memory limit on free apps
