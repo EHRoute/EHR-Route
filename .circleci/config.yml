@@ -72,6 +72,7 @@ jobs:
 
     executor: jdk11
     working_directory: ~/project/<< parameters.package_name >>
+    machine: true
 
     environment:
       # Limit max heap to 512MB for Heroku's max memory limit on free apps
@@ -94,7 +95,7 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
       # Decrypt app properties
-      # - run: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.yml -out src/main/resources/application.yml.secrets -k SECRET_KEY
+      # - run: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.yml.secrets -out src/main/resources/application.yml -k $DECRYPTION_KEY
 
       # Restore dependencies cache
       - restore_cache:
