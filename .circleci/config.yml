@@ -83,13 +83,6 @@ jobs:
       - checkout:
         path: ~/project
 
-      # This step is added only to show that we are in the package directory
-      - run:
-        name: Content
-        command: |
-          cat README.md
-          echo "<< parameters.package_name >> built." > build.txt
-
       - run: echo "Build << parameters.package_name >> ..."
 
 #      - persist_to_workspace:
