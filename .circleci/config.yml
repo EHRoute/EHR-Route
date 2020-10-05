@@ -108,7 +108,7 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ checksum "pom.xml" }}
           paths: ~/.m2
-          
+
       # Package application
       - run: mvn clean install
 
@@ -159,7 +159,7 @@ workflows:
   ############################################################
 
   config-server:
-    # when: << pipeline.parameters.config-server >>
+    when: << pipeline.parameters.config-server >>
     jobs:
       - build:
           package_name: config-server
