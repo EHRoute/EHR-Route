@@ -94,10 +94,10 @@ jobs:
         name: Build
         command: echo "Build << parameters.package_name >> ..."
 
-      - persist_to_workspace:
-        root: ~/project
-        paths:
-          - << parameters.package_name >>
+#      - persist_to_workspace:
+#        root: ~/project
+#        paths:
+#          - << parameters.package_name >>
 
       # Use layer caching
       - setup_remote_docker:
@@ -137,9 +137,9 @@ jobs:
       - run: docker push config-server-img
 
       # store raw contents of src code
-      - store_artifacts:
-        path: target/classes
-        destination: config-server-artifacts
+#      - store_artifacts:
+#        path: target/classes
+#        destination: config-server-artifacts
 
 
   deploy:
