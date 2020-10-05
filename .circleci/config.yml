@@ -42,7 +42,6 @@ parameters:
 
 executors:
   jdk11:
-    machine: true
     docker:
       - image: circleci/openjdk:11.0.1-jdk
 
@@ -90,6 +89,9 @@ jobs:
 #        root: ~/project
 #        paths:
 #          - << parameters.package_name >>
+
+      - setup_remote_docker:
+          version: 19.03.13
 
       # Login to DockerHub to push the built image shortly
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
