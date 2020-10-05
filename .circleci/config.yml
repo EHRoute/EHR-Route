@@ -126,7 +126,7 @@ workflows:
   config-server:
     when: << pipeline.parameters.config-server >>
     jobs:
-      build:
+      - build:
         name: config-server-build
         package_name: config-server
 #        docker:
