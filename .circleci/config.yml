@@ -83,16 +83,15 @@ jobs:
       - checkout:
         path: ~/project
 
+      - setup_remote_docker:
+          docker_layer_caching: true
+
       - run: echo "Build << parameters.package_name >> ..."
 
 #      - persist_to_workspace:
 #        root: ~/project
 #        paths:
 #          - << parameters.package_name >>
-
-      # Use layer caching
-      - setup_remote_docker:
-        docker_layer_caching: true
 
       # Login to DockerHub to push the built image shortly
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
