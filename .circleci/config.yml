@@ -83,8 +83,8 @@ jobs:
       - checkout:
           path: ~/project
 
-      - setup_remote_docker:
-          docker_layer_caching: true
+#      - setup_remote_docker:
+#          docker_layer_caching: true
 
       - run: echo "Building << parameters.package_name >> ..."
 
