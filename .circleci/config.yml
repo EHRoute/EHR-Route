@@ -64,30 +64,33 @@ jobs:
             # (optional) additional CI parameters to include in the pipeline (must be a valid JSON)
             CI_PARAMETERS: '{ "deploy": true }'
 
-#  build:
-#    parameters:
-#      package_name:
-#        type: string
-#
-#    executor: node
-#    working_directory: ~/project/<< parameters.package_name >>
-#
-#    steps:
-#      - checkout:
-#          path: ~/project
-#      # This step is added only to show that we are in the package directory
-#      - run:
-#          name: Content
-#          command: |
-#            cat README.md
-#            echo "<< parameters.package_name >> built." > build.txt
-#      - run:
-#          name: Build
-#          command: echo "Build << parameters.package_name >> ..."
-#      - persist_to_workspace:
-#          root: ~/project
-#          paths:
-#            - << parameters.package_name >>
+  build:
+
+    parameters:
+      package_name:
+        type: string
+
+    docker:
+      - image: circleci/openjdk:11.0.1-jdk
+
+    working_directory: ~/project/<< parameters.package_name >>
+
+    steps:
+      - checkout:
+          path: ~/project
+      # This step is added only to show that we are in the package directory
+      - run:
+          name: Content
+          command: |
+            cat README.md
+            echo "<< parameters.package_name >> built." > build.txt
+      - run:
+          name: Build
+          command: echo "Build << parameters.package_name >> ..."
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - << parameters.package_name >>
 
   deploy:
     parameters:
@@ -124,12 +127,12 @@ workflows:
   ############################################################
 
   config-server:
-    # when: << pipeline.parameters.config-server >>
+    when: << pipeline.parameters.config-server >>
     jobs:
-      config-server-build:
-        package_name: config-server
-        docker:
-          - image: circleci/openjdk:11.0.1-jdk
+      - build:
+          name: config-server-build
+          package_name: config-server
+
 #        name: config-server-build
 #        package_name: config-server
 #        docker:
