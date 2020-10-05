@@ -104,27 +104,21 @@ jobs:
         docker_layer_caching: true
 
       # Login to DockerHub to push the built image shortly
-      - run:
-        name: Login to DockerHub
-        command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
 
       # Decrypt app properties
-      - run:
-        name: Decrpyt Properties
-        command: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.yml.secrets -out src/main/resources/application.yml -k $SECRETS_KEY
+      - run: openssl enc -d -aes-256-ecb -md md5 -in src/main/resources/application.yml.secrets -out src/main/resources/application.yml -k $SECRETS_KEY
 
       # Restore dependencies cache
       - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
+        keys: v1-dependencies-{{ checksum "pom.xml" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          #- v1-dependencies-
       - run: mvn dependency:go-offline
 
       # Cache dependencies
       - save_cache:
-        paths:
-          - ~/.m2
+        paths: ~/.m2
         key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # Package application
