@@ -90,9 +90,7 @@ jobs:
           cat README.md
           echo "<< parameters.package_name >> built." > build.txt
 
-      - run:
-        name: Build
-        command: echo "Build << parameters.package_name >> ..."
+      - run: echo "Build << parameters.package_name >> ..."
 
 #      - persist_to_workspace:
 #        root: ~/project
@@ -118,8 +116,8 @@ jobs:
 
       # Cache dependencies
       - save_cache:
-        paths: ~/.m2
-        key: v1-dependencies-{{ checksum "pom.xml" }}
+          path: "~/.m2"
+          key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # Package application
       - run: mvn clean install
