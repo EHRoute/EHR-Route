@@ -112,7 +112,7 @@ jobs:
       - run: bash <(curl -s https://codecov.io/bash)
 
       # Analyze on SonarCloud
-      - run: mvn verify sonar:sonar -e -X
+      - run: mvn verify sonar:sonar
 
       # Package application
       - run: mvn clean install
