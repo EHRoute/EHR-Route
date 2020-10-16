@@ -1,5 +1,6 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route)
+[![codecov](https://codecov.io/gh/MuizMahdi/EHR-Route/branch/master/graph/badge.svg?token=S9E2GZ97ZN)](https://codecov.io/gh/MuizMahdi/EHR-Route)
 
 ##### Note: This repository is a remake of the previous EHRoute implementaiton, it aims to make EHRoute more performant, and cloud native. You can find the old implementation [here](https://github.com/MuizMahdi/EHR-Route-Mono).  
 

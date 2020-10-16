@@ -39,7 +39,6 @@ parameters:
     type: boolean
     default: false
 
-
 executors:
   jdk11:
     docker:
@@ -108,6 +107,9 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ checksum "pom.xml" }}
           paths: ~/.m2
+
+      # Upload code coverage report
+      - run: bash <(curl -s https://codecov.io/bash)
 
       # Package application
       - run: mvn clean install
