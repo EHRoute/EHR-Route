@@ -109,10 +109,10 @@ jobs:
           paths: ~/.m2
 
       # Upload code coverage report
-      #- run: bash <(curl -s https://codecov.io/bash)
+      - run: bash <(curl -s https://codecov.io/bash)
 
       # Analyze on SonarCloud
-      #- run: mvn verify sonar:sonar
+      - run: mvn verify sonar:sonar
 
       # Package application
       - run: mvn clean install
