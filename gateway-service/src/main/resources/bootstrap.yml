@@ -3,6 +3,7 @@ spring:
     name: gateway-service
   cloud:
     config:
+      enabled: false
       uri: http://localhost:8888
       fail-fast: true
       retry:

@@ -82,12 +82,14 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.3.0.603</version>
+                <inherited>false</inherited>
                 <executions>
                     <execution>
-                        <phase>verify</phase>
+                        <id>running-sonar</id>
                         <goals>
                             <goal>sonar</goal>
                         </goals>
+                        <phase>install</phase>
                     </execution>
                 </executions>
             </plugin>
