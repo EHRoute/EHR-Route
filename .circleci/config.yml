@@ -109,19 +109,13 @@ jobs:
           paths: ~/.m2
 
       # Upload code coverage report
-      - run: bash <(curl -s https://codecov.io/bash)
+      #- run: bash <(curl -s https://codecov.io/bash)
 
       # Analyze on SonarCloud
       #- run: mvn verify sonar:sonar
 
       # Package application
       - run: mvn clean install
-
-      # Build docker image from dockerfile
-      #- run: docker build -t config-server-img .
-
-      # Push docker image to DockerHub
-      #- run: docker push config-server-img
 
       # Build and push Docker image
       - run: |
