@@ -1,3 +1,8 @@
+![EHRouteLogoImage](https://i.imgur.com/XCv5rTJ.png)
+
+# EHR Route
+#### A secure Electronic Health Records (EHR) storage and sharing solution 
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route)
 [![codecov](https://codecov.io/gh/MuizMahdi/EHR-Route/branch/master/graph/badge.svg?token=S9E2GZ97ZN)](https://codecov.io/gh/MuizMahdi/EHR-Route)
@@ -5,8 +10,9 @@
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=security_rating)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
-##### Note: This repository is a remake of the previous EHRoute implementaiton, it aims to make EHRoute more performant, and cloud native. You can find the old implementation [here](https://github.com/MuizMahdi/EHR-Route-Mono).  
+##### Note: This repository is a remake of the previous EHRoute server-side implementaiton, it aims to make EHRoute more performant, and cloud native. You can find the old implementation [here](https://github.com/MuizMahdi/EHR-Route-Mono).  
 
 # Problem Statement
 In 2018 alone, there have been 
@@ -15,13 +21,9 @@ Such data security concerns are often the main reason that providers are hesitan
 Genetic studies, cancer/chronic disease registries, substance abuse, population health management, larger-scale analytics, epidemiology/disease tracking, and even interoperability for routine patient care in the emergency department 
 [are all potential uses for data sharing](https://healthitsecurity.com/features/benefits-challenges-of-secure-healthcare-data-sharing).
 
-<br/><br/>
-
-![EHRouteLogoImage](https://i.imgur.com/7GLw3np.png)
-
 <br/>
 
-# EHR Route
+# Description
 EHR Route is an open source Electronic Health Records (EHR) sharing and storage solution that aims to prevent the most common causes of 
 [EHRs data breaches](https://www.healthcareitnews.com/projects/biggest-healthcare-data-breaches-2018-so-far).
 It closes gap between healthcare providers and patients, and ensures patients complete privacy and engagement in the process.
