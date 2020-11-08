@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: account-service
+  cloud:
+    config:
+      enabled: true
+      uri: http://localhost:8888
+      fail-fast: false
+      #retry:
+        #max-attempts: 20
+        #max-interval: 15000
+        #initial-interval: 5000
