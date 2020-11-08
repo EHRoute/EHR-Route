@@ -6,10 +6,6 @@ parameters:
     type: boolean
     default: true
 
-  ############################################################
-  ## Services Workflows Triggers Parameters
-  ############################################################
-
   config-server:
     type: boolean
     default: false
@@ -19,6 +15,10 @@ parameters:
     default: false
 
   gateway-service:
+    type: boolean
+    default: false
+
+  account-service:
     type: boolean
     default: false
 
@@ -169,64 +169,51 @@ workflows:
     jobs:
       - build:
           package_name: config-server
-          #name: config-server-build
+          name: config-server-build
 
-#    discovery-service:
-#        when: << pipeline.parameters.discovery-service >>
-#        jobs:
-#            - build:
-#                  name: discovery-service-build
-#                  package_name: discovery-service
-#            - deploy:
-#                  name: discovery-service-deploy
-#                  package_name: discovery-service
-#                  requires:
-#                      - discovery-service-build
-#
-#    gateway-service:
-#        when: << pipeline.parameters.gateway-service >>
-#        jobs:
-#            -   build:
-#                    name: gateway-service-build
-#                    package_name: gateway-service
-#            -   deploy:
-#                    name: gateway-service-deploy
-#                    package_name: gateway-service
-#                    requires:
-#                        - gateway-service-build
-#
-#    auth-service:
-#        when: << pipeline.parameters.auth-service >>
-#        jobs:
-#            -   build:
-#                    name: auth-service-build
-#                    package_name: auth-service
-#            -   deploy:
-#                    name: auth-service-deploy
-#                    package_name: auth-service
-#                    requires:
-#                        - auth-service-build
-#
-#    patient-service:
-#        when: << pipeline.parameters.patient-service >>
-#        jobs:
-#            -   build:
-#                    name: patient-service-build
-#                    package_name: patient-service
-#            -   deploy:
-#                    name: patient-service-deploy
-#                    package_name: patient-service
-#                    requires:
-#                        - patient-service-build
-#
-#    provider-service:
-#        when: << pipeline.parameters.provider-service >>
-#        jobs:
-#            -   build:
-#                    name: provider-service-build
-#                    package_name: provider-service
-#            -   deploy:
-#                    name: provider-service-deploy
-#                    package_name: provider-service
-#                    requires:
-#                        - provider-service-build
+  discovery-service:
+    when: << pipeline.parameters.discovery-service >>
+    jobs:
+      - build:
+          package_name: discovery-service
+          name: discovery-service-build
+
+  gateway-service:
+    when: << pipeline.parameters.gateway-service >>
+    jobs:
+      - build:
+          package_name: gateway-service
+          name: gateway-service-build
+
+  account-service:
+    when: << pipeline.parameters.account-service >>
+    jobs:
+      - build:
+          package_name: account-service
+          name: account-service-build
+
+  auth-service:
+    when: << pipeline.parameters.auth-service >>
+    jobs:
+      - build:
+          package_name: auth-service
+          name: auth-service-build
+
+  patient-service:
+    when: << pipeline.parameters.patient-service >>
+    jobs:
+      - build:
+          package_name: patient-service
+          name: patient-service-build
+
+  provider-service:
+    when: << pipeline.parameters.provider-service >>
+    jobs:
+      - build:
+          package_name: provider-service
+          name: provider-service-build
+#     - deploy:
+#         package_name: provider-service
+#         name: provider-service-deploy
+#         requires:
+#           - provider-service-build

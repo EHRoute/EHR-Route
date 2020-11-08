@@ -26,7 +26,7 @@ public class ContextFilter implements WebFilter {
         final String contextPath = serverProperties.getServlet().getContextPath();
         final ServerHttpRequest request = exchange.getRequest();
 
-        // If the request starts with the context path ("/provider")
+        // If the request starts with the context path ("/auth")
         if (request.getURI().getPath().startsWith(contextPath)) {
             // Remove the context path and move on
             return chain.filter(

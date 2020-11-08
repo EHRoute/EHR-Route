@@ -1,7 +1,8 @@
 {
   "root": "",
-  "pages": 3,
+  "pages": 7,
   "packages": {
+      "account-service": ["account-service/"],
       "auth-service": ["auth-service/"],
       "config-server": ["config-server/"],
       "discovery-service": ["discovery-service/"],
