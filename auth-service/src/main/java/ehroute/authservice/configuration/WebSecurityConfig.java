@@ -21,7 +21,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import reactor.core.publisher.Mono;
 
-import javax.servlet.http.HttpServletResponse;
 
 
 @Configuration
@@ -106,10 +105,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.formLogin().disable()
 
 				// Disable basic authentication
-				.httpBasic().disable()
-
-
-
+				.httpBasic().disable().build();
 	}
 
 
@@ -139,10 +135,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	    //auth.userDetailsService().passwordEncoder(new BCryptPasswordEncoder());
     }
-
-
-
-
 
 
 }
