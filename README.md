@@ -5,10 +5,6 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![codecov](https://codecov.io/gh/MuizMahdi/EHR-Route/branch/master/graph/badge.svg?token=S9E2GZ97ZN)](https://codecov.io/gh/MuizMahdi/EHR-Route)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
-[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=security_rating)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 ##### Note: This repository is a remake of the previous EHRoute server-side implementaiton, it aims to make EHRoute more performant, and cloud native. You can find the old implementation [here](https://github.com/MuizMahdi/EHR-Route-Mono).  
