@@ -112,7 +112,7 @@ jobs:
       - run: bash <(curl -s https://codecov.io/bash)
 
       # Analyze on SonarCloud
-      - run: mvn verify sonar:sonar
+      - run: mvn verify sonar:sonar -Dsonar.projectKey=ehroute:<< parameters.package_name >> -Dsonar.login=${SONAR_TOKEN}
 
       # Package application
       - run: mvn clean install

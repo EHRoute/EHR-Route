@@ -21,9 +21,6 @@
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
-        <sonar.projectKey>MuizMahdi_EHR-Route</sonar.projectKey>
-        <sonar.organization>ehroute</sonar.organization>
-        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <modules>
@@ -31,6 +28,7 @@
         <module>discovery-service</module>
         <module>gateway-service</module>
         <module>auth-service</module>
+        <module>account-service</module>
         <module>patient-service</module>
         <module>provider-service</module>
     </modules>
@@ -49,23 +47,6 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.3.0.603</version>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>running-sonar</id>
-                        <goals>
-                            <goal>sonar</goal>
-                        </goals>
-                        <phase>install</phase>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
     </build>
 
 </project>
