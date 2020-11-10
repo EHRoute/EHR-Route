@@ -4,7 +4,6 @@
 #### A secure Electronic Health Records (EHR) storage and sharing solution 
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route)
 [![codecov](https://codecov.io/gh/MuizMahdi/EHR-Route/branch/master/graph/badge.svg?token=S9E2GZ97ZN)](https://codecov.io/gh/MuizMahdi/EHR-Route)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=MuizMahdi_EHR-Route&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=MuizMahdi_EHR-Route)
@@ -13,6 +12,16 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 
 ##### Note: This repository is a remake of the previous EHRoute server-side implementaiton, it aims to make EHRoute more performant, and cloud native. You can find the old implementation [here](https://github.com/MuizMahdi/EHR-Route-Mono).  
+
+|                   | Status                                                                                                                    | Maintainability                                                                                                                                                                                   | Security                                                                                                                                                                                      |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Auth Service      | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) |                                                                                                                                                                                                   |                                                                                                                                                                                               |
+| Account Service   | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) | [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ehroute%3Aaccount-service&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=ehroute%3Aaccount-service) | [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ehroute%3Aaccount-service&metric=security_rating)](https://sonarcloud.io/dashboard?id=ehroute%3Aaccount-service) |
+| Config Service    | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) |                                                                                                                                                                                                   |                                                                                                                                                                                               |
+| Discovery Service | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) |                                                                                                                                                                                                   |                                                                                                                                                                                               |
+| Gateway Service   | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) |                                                                                                                                                                                                   |                                                                                                                                                                                               |
+| Provider Service  | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) |                                                                                                                                                                                                   |                                                                                                                                                                                               |
+| Patient Service   | [![MuizMahdi](https://circleci.com/gh/MuizMahdi/EHR-Route.svg?style=shield)](https://circleci.com/gh/MuizMahdi/EHR-Route) |                                                                                                                                                                                                   |                                                                                                                                                                                               |
 
 # Problem Statement
 In 2018 alone, there have been 
@@ -31,17 +40,6 @@ It closes gap between healthcare providers and patients, and ensures patients co
 It utilizes [Public-key cryptography]( https://en.wikipedia.org/wiki/Public-key_cryptography)
 (also known as asymmetric key encryption) And [Blockchain Technology]( https://en.wikipedia.org/wiki/Blockchain) 
 using [Proof of authority]( https://en.wikipedia.org/wiki/Proof-of-authority) with a single validator at its core; Public-key cryptography enables Patients maximum engagement by giving them control of choosing who uses, edits, or shares their electronic health record. While blockchain ensures and verifies data integrity.
-
-<br/>
-
-### Private networks and Single Proof of Authority
-EHR data is contained within the blocks of the blockchain; each block contains a single EHR, which represents a transaction. Multiple healthcare institutions would form a network, where all EHR data is shared among the nodes of the network and would all be members of a private blockchain network.
-The networks are PoA based with a server as the only validator, this allows for complete privacy of the blockchain network, and authorization of its members.
-
-<br/>
-
-### Real-time Communication
-Server-sent events are used for communication via an API between the nodes, authorized and routed by the server (It is planned to use WebRTC in the future) [Details and UML diagrams will be added to the wiki]. Since Server-sent events do not allow for binary data streaming, their only current advantage is that they enables the compression of large files by storing them on a cloud storage, and sending their download URI (which are deleted instantly upon download completion), which cannot be achieved by streaming.
 
 <br/>
 
