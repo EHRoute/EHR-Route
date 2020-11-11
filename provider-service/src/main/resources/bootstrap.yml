@@ -4,8 +4,8 @@ spring:
   cloud:
     config:
       enabled: false
-      uri: http://localhost:8888
-      fail-fast: true
+      uri: https://ehroute-config-server.herokuapp.com
+      fail-fast: false
       retry:
         max-attempts: 20
         max-interval: 15000

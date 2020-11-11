@@ -95,17 +95,17 @@
 
 
 		<!-- Config Client -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>-->
+		</dependency>
 
 
 		<!-- Eureka Client -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<!-- Dev -->
 		<dependency>
@@ -146,6 +146,7 @@
 
 	</dependencies>
 
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -164,6 +165,7 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 
 	<build>
 		<plugins>

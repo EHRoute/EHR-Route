@@ -103,17 +103,17 @@
 
 
 		<!-- Eureka Client -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>-->
+		</dependency>
 
 
 		<!-- Config Client -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>-->
+		</dependency>
 
 
 		<!-- OAuth2 -->

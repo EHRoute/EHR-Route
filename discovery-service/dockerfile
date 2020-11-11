@@ -3,7 +3,7 @@ MAINTAINER Muizz Mahdy<Moezmahdy@gmail.com>
 WORKDIR application
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -Djava.security.egd=file:/dev/./urandom -jar application.jar extract
+RUN java -Xmx256m -Xss512k -XX:MetaspaceSize=100m -Djarmode=layertools -Djava.security.egd=file:/dev/./urandom -jar application.jar extract
 
 FROM openjdk:11-jre-slim
 WORKDIR application
