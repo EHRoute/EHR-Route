@@ -20,6 +20,9 @@
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+		<sonar.projectKey>ehroute:provider-service</sonar.projectKey>
+		<sonar.organization>ehroute</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
@@ -150,6 +153,21 @@
 						<enabled>true</enabled>
 					</layers>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.3.0.603</version>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>running-sonar</id>
+						<goals>
+							<goal>sonar</goal>
+						</goals>
+						<phase>install</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

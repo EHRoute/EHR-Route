@@ -120,9 +120,9 @@ jobs:
       # Build and push Docker image
       - run: |
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t ehroute/<< parameters.package_name >>:$TAG .
+          docker build -t muizzmahdy/ehroute-< parameters.package_name >>:$TAG .
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-          docker push ehroute/<< parameters.package_name >>:$TAG
+          docker push muizzmahdy/ehroute-<< parameters.package_name >>:$TAG
 
       # store raw contents of src code
 #      - store_artifacts:
@@ -212,6 +212,7 @@ workflows:
       - build:
           package_name: provider-service
           name: provider-service-build
+
 #     - deploy:
 #         package_name: provider-service
 #         name: provider-service-deploy
