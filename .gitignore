@@ -11,3 +11,4 @@ target/
 mvnw
 mvnw.cmd
 HELP.md
+config-server/src/main/resources/bootstrap.yml

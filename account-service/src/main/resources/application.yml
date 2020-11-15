@@ -5,7 +5,7 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: ttps://ehroute-discovery-service.herokuapp.com/eureka/
+      defaultZone: https://ehroute-discovery-service.herokuapp.com/eureka/
 
 spring:
   application:

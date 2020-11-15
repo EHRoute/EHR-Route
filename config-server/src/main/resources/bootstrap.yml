@@ -5,7 +5,7 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/EHRoute/server-configs.git
+          uri: https://github.com/EHRoute/ServicesConfigs.git
           timeout: 4
           clone-on-start: true
           skip-ssl-validation: true
