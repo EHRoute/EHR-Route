@@ -10,7 +10,7 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 
-@Component
+/*@Component
 public class ContextFilter implements WebFilter {
 
     private ServerProperties serverProperties;
@@ -39,4 +39,4 @@ public class ContextFilter implements WebFilter {
         return chain.filter(exchange);
     }
 
-}
+}*/

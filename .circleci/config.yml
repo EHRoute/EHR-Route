@@ -79,6 +79,8 @@ jobs:
       # Limit max heap to 512MB for Heroku's max memory limit on free apps
       JVM_OPTS: -Xmx512m
       TERM: dumb
+      GIT_USERNAME: ${GIT_USERNAME}
+      GIT_PASSWORD: ${GIT_PASSWORD}
 
     steps:
 

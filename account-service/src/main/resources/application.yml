@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 6001
   servlet.context-path: /account
 
 eureka:
@@ -8,7 +8,33 @@ eureka:
       defaultZone: https://ehroute-discovery-service.herokuapp.com/eureka/
 
 spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
   application:
     name: account-service
   liquibase:
-    change-log: classpath:db/db.changelog-master.yaml
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/ehroute?schema=business&autoReconnect=true
+    username: postgres
+    password: ${DB_PASSWORD}
+    #pool:
+      #enabled: true
+      #initial-size: 10
+      #max-size: 100
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+logging:
+  level:
+    org.springframework: Error
+    org.springframework.data.r2dbc: Debug

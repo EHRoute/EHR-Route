@@ -17,22 +17,31 @@
 	<name>provider-service</name>
 	<description>EHRoute Provider Service Project</description>
 
+
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
+		<spring-cloud.version>2020.0.0-M6</spring-cloud.version>
+		<org.projectlombok.version>1.18.16</org.projectlombok.version>
+		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
+		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
 		<sonar.projectKey>ehroute:provider-service</sonar.projectKey>
 		<sonar.organization>ehroute</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<!--suppress UnresolvedMavenProperty -->
+		<ehroute.dbpassword>${DB_PASSWORD}</ehroute.dbpassword>
 	</properties>
+
 
 	<dependencies>
 
-		<!-- Spring Starters -->
+		<!-- <editor-fold desc="Spring Starers"> -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dependencies</artifactId>
+			<version>${spring-cloud.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -45,31 +54,37 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-
-		<!-- Spring Cloud -->
+		<!--<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>-->
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-dependencies</artifactId>
-			<version>${spring-cloud.version}</version>
-			<type>pom</type>
-			<scope>import</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+		<!--<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>-->
+		<!-- </editor-fold> -->
+
 
 
 		<!-- Actuator -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+		</dependency>-->
 
 
 		<!-- Lombok -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
+			<version>1.18.16</version>
+		</dependency>-->
 
 
 		<!-- Database Access -->
@@ -90,7 +105,7 @@
 		
 		
 		<!-- RSocket -->
-		<dependency>
+		<!--<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
@@ -98,7 +113,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
+		</dependency>-->
 
 
 		<!-- RSocket -->
@@ -116,19 +131,19 @@
 		
 		
 		<!-- Config Client -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
+		</dependency>-->
 		
 		
 		<!-- Configuration Processor -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<version>2.3.3.RELEASE</version>
-		</dependency>
-		
+		</dependency>-->
+
 	</dependencies>
 
 	<dependencyManagement>
