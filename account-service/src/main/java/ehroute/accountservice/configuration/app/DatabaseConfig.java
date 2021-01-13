@@ -27,7 +27,7 @@ public class DatabaseConfig extends AbstractR2dbcConfiguration {
                 PostgresqlConnectionConfiguration.builder()
                         .host("localhost")
                         .database("ehroute")
-                        .username("postgres")
+                        .username("postgresql")
                         .password(dbPassword)
                         .port(5432)
                         .schema("business")

@@ -1,5 +1,4 @@
 package ehroute.accountservice.handlers.account;
-import an.awesome.pipelinr.Command;
 import com.tej.JooQDemo.jooq.sample.model.tables.Users;
 import ehroute.accountservice.entities.user.User;
 import ehroute.accountservice.payload.queries.FindAccountQuery;
@@ -13,7 +12,7 @@ import java.util.Map;
 
 
 @Component
-public class FindAccountHandler implements Command.Handler<FindAccountQuery, String> {
+public class FindAccountHandler {
 
     // <editor-fold desc="Dependencies">
 
@@ -24,7 +23,6 @@ public class FindAccountHandler implements Command.Handler<FindAccountQuery, Str
 
     // <editor-fold desc="Handler">
 
-    @Override
     public String handle(FindAccountQuery command) {
         // var user = accountRepository.findById(command.getId(), User.class, Users.USERS);
         // var users = accountRepository.findAllByField("EMAIL", "string@gmail.com", User.class, Users.USERS);

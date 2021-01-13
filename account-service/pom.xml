@@ -149,11 +149,6 @@
 			<version>1.4.8</version>
 		</dependency>
 		<dependency>
-			<groupId>an.awesome</groupId>
-			<artifactId>pipelinr</artifactId>
-			<version>0.5</version>
-		</dependency>
-		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>30.1-jre</version>
@@ -227,7 +222,7 @@
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
 								<url>jdbc:postgresql://localhost:5432/ehroute?currentSchema=business</url>
-								<user>postgres</user>
+								<user>postgresql</user>
 								<password>${ehroute.dbpassword}</password>
 							</jdbc>
 							<generator>
@@ -236,7 +231,7 @@
 									<properties>
 										<property>
 											<key>scripts</key>
-											<value>src/main/resources/db/changelog/liquibase-outputChangeLog.xml</value>
+											<value>src/main/resources/db/db.changelog-master.yaml</value>
 										</property>
 										<property>
 											<key>includeLiquibaseTables</key>
@@ -278,6 +273,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+				</configuration>
 			</plugin>
 			<!--</editor-fold>-->
 
@@ -287,7 +287,7 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>4.1.1</version>
 				<configuration>
-					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
+					<propertyFile>src/main/resources/liquibase.yaml</propertyFile>
 				</configuration>
 			</plugin>
 			<!--</editor-fold>-->
