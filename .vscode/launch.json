@@ -1,0 +1,56 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch AuthServiceApplication",
+            "request": "launch",
+            "mainClass": "ehroute.authservice.AuthServiceApplication",
+            "projectName": "auth-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch ConfigServerApplication",
+            "request": "launch",
+            "mainClass": "ehroute.configserver.ConfigServerApplication",
+            "projectName": "config-server"
+        },
+        {
+            "type": "java",
+            "name": "Launch DiscoveryServiceApplication",
+            "request": "launch",
+            "mainClass": "ehroute.discoveryservice.DiscoveryServiceApplication",
+            "projectName": "discovery-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch GatewayServiceApplication",
+            "request": "launch",
+            "mainClass": "ehroute.gatewayservice.GatewayServiceApplication",
+            "projectName": "gateway-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch PatientServiceApplication",
+            "request": "launch",
+            "mainClass": "ehroute.patientservice.PatientServiceApplication",
+            "projectName": "patient-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch ProviderServiceApplication",
+            "request": "launch",
+            "mainClass": "ehroute.providerservice.ProviderServiceApplication",
+            "projectName": "provider-service"
+        }
+    ]
+}
