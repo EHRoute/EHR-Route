@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ehroute.accountservice</groupId>
-	<artifactId>account-service</artifactId>
+	<groupId>ehroute.identityservice</groupId>
+	<artifactId>identity-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>account-service</name>
-	<description>EHRoute Account Service</description>
+	<name>identity-service</name>
+	<description>EHRoute Identity Service</description>
 
 
 	<parent>
@@ -18,15 +18,15 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-
+	
 	<properties>
 		<java.version>11</java.version>
-		<spring-boot-admin.version>2.3.0</spring-boot-admin.version>
-		<spring-cloud.version>2020.0.0-M6</spring-cloud.version>
+		<repackage.classifier/>
+		<spring-native.version>0.10.1</spring-native.version>
 		<org.projectlombok.version>1.18.16</org.projectlombok.version>
 		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
 		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
-		<sonar.projectKey>ehroute:account-service</sonar.projectKey>
+		<sonar.projectKey>ehroute:identity-service</sonar.projectKey>
 		<sonar.organization>ehroute</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<!--suppress UnresolvedMavenProperty -->
@@ -36,178 +36,160 @@
 
 	<dependencies>
 
-		<!-- <editor-fold desc="Spring Starters"> -->
+		<!-- #region Spring -->
+
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-dependencies</artifactId>
-			<version>${spring-cloud.version}</version>
-			<type>pom</type>
-			<scope>import</scope>
+			<groupId>org.springframework.experimental</groupId>
+			<artifactId>spring-native</artifactId>
+			<version>${spring-native.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>io.projectreactor</groupId>
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- </editor-fold> -->
 
-		<!-- <editor-fold desc="Monitoring"> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>de.codecentric</groupId>
-			<artifactId>spring-boot-admin-starter-client</artifactId>
-		</dependency>
-		<!-- </editor-fold> -->
 
-		<!-- <editor-fold desc="DB"> -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- #endregion -->
+
+
+		<!-- #region DB -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-r2dbc</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-r2dbc</artifactId>
-			<version>1.2.2</version>
-		</dependency>
+
 		<dependency>
 			<groupId>io.r2dbc</groupId>
 			<artifactId>r2dbc-postgresql</artifactId>
+			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- </editor-fold> -->
 
-		<!-- <editor-fold desc="Clients"> -->
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		</dependency>
-		<!-- </editor-fold> -->
+		<!-- #endregion -->
 
-		<!-- <editor-fold desc="Dev"> -->
+
+		<!-- #region Dev -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jooq</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.jooq</groupId>
 			<artifactId>jooq-meta-extensions-liquibase</artifactId>
 			<version>3.14.4</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-maven-plugin</artifactId>
 			<version>4.1.1</version>
 		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${org.projectlombok.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-webflux-ui</artifactId>
 			<version>1.4.8</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>30.1-jre</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
+
 		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct-jdk8</artifactId>
-			<version>${org.mapstruct.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${org.projectlombok.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${org.mapstruct.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
 		<dependency>
-			<groupId>net.logstash.logback</groupId>
-			<artifactId>logstash-logback-encoder</artifactId>
-			<version>6.5</version>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct-jdk8</artifactId>
+			<version>${org.mapstruct.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.fluentd</groupId>
-			<artifactId>fluent-logger</artifactId>
-			<version>0.3.4</version>
-		</dependency>
-        <!-- </editor-fold> -->
+
+		<!-- #endregion -->
 
 	</dependencies>
-
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>de.codecentric</groupId>
-				<artifactId>spring-boot-admin-dependencies</artifactId>
-				<version>${spring-boot-admin.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
 
 
 	<build>
 		<plugins>
 
-			<!--<editor-fold desc="JOOQ Codegen">-->
+			<!-- #region JOOQ Codegen -->
+
 			<plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>
@@ -267,21 +249,11 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--</editor-fold>-->
 
-			<!--<editor-fold desc="Spring Maven">-->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<layers>
-						<enabled>true</enabled>
-					</layers>
-				</configuration>
-			</plugin>
-			<!--</editor-fold>-->
+			<!-- #endregion -->
 
-			<!--<editor-fold desc="Liquibase">-->
+			<!-- #region Liquibase -->
+
 			<plugin>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
@@ -290,9 +262,38 @@
 					<propertyFile>src/main/resources/liquibase.yaml</propertyFile>
 				</configuration>
 			</plugin>
-			<!--</editor-fold>-->
 
-			<!--<editor-fold desc="Maven Compiler">-->
+			<!-- #endregion -->
+
+			<!-- #region Spring Maven -->
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+					<classifier>${repackage.classifier}</classifier>
+					<image>
+						<builder>paketobuildpacks/builder:tiny</builder>
+						<env>
+							<BP_NATIVE_IMAGE>true</BP_NATIVE_IMAGE>
+						</env>
+					</image>
+					<layers>
+						<enabled>true</enabled>
+					</layers>
+				</configuration>
+			</plugin>
+
+			<!-- #endregion -->
+
+			<!-- #region Maven Compiler -->
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -322,9 +323,35 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
-			<!--</editor-fold>-->
 
-			<!--<editor-fold desc="Sonar Cloud">-->
+			<!-- #endregion -->
+
+			<!-- #region Spring AOT -->
+
+			<plugin>
+				<groupId>org.springframework.experimental</groupId>
+				<artifactId>spring-aot-maven-plugin</artifactId>
+				<version>${spring-native.version}</version>
+				<executions>
+					<execution>
+						<id>test-generate</id>
+						<goals>
+							<goal>test-generate</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>generate</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- #endregion -->
+
+			<!-- #region Sonar Cloud -->
+
 			<!--<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
@@ -340,23 +367,92 @@
 					</execution>
 				</executions>
 			</plugin>-->
-			<!--</editor-fold>-->
+
+			<!-- #endregion -->
 
 		</plugins>
 	</build>
 
 
 	<repositories>
+
 		<repository>
 			<id>central</id>
 			<name>bintray</name>
 			<url>https://jcenter.bintray.com</url>
 		</repository>
+
+		<repository>
+			<id>spring-releases</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+
 		<repository>
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
 			<url>https://repo.spring.io/milestone</url>
 		</repository>
+
 	</repositories>
+
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-releases</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+
+	<profiles>
+		<profile>
+			<id>native</id>
+			<properties>
+				<repackage.classifier>exec</repackage.classifier>
+				<native-buildtools.version>0.9.1</native-buildtools.version>
+			</properties>
+			<dependencies>
+				<dependency>
+					<groupId>org.graalvm.buildtools</groupId>
+					<artifactId>junit-platform-native</artifactId>
+					<version>${native-buildtools.version}</version>
+					<scope>test</scope>
+				</dependency>
+			</dependencies>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native-buildtools.version}</version>
+						<executions>
+							<execution>
+								<id>test-native</id>
+								<phase>test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>build-native</id>
+								<phase>package</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
