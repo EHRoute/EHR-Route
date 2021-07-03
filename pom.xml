@@ -26,6 +26,7 @@
         <module>config-server</module>
         <module>discovery-service</module>
         <module>gateway-service</module>
+        <module>identity-service</module>
         <module>auth-service</module>
         <module>account-service</module>
         <module>patient-service</module>
