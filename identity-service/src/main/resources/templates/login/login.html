@@ -24,6 +24,9 @@
                     <input name="password" type="password" class="form-control" placeholder="Password" />
                     <span class="has-error" th:text="${error}"></span>
 
+                    <label for="remember-chbx"></label>
+                    <input name="remember" type="checkbox" id="remember-chbx" class="form-control"/>
+
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>

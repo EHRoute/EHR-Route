@@ -7,6 +7,7 @@ public class LoginModel {
 
     private String username;
     private String password;
+    private boolean remember;
     private String _csrf;
 
     public String getUsername() {
@@ -15,6 +16,10 @@ public class LoginModel {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean getRemember() {
+        return remember;
     }
 
     public String get_csrf() {
@@ -27,6 +32,10 @@ public class LoginModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setRemember(boolean remember) {
+        this.remember = remember;
     }
 
     public void set_csrf(String _csrf) {
