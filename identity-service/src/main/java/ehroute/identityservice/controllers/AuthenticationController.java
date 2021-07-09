@@ -1,6 +1,5 @@
 package ehroute.identityservice.controllers;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.validation.Valid;
