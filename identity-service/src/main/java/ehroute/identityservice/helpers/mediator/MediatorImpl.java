@@ -2,11 +2,11 @@ package ehroute.identityservice.helpers.mediator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.reactive.context.ReactiveWebApplicationContext;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.core.ResolvableType;
 
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * Resolves API requests by dispatching them to their assigned handlers and returning their response
@@ -28,7 +28,7 @@ public class MediatorImpl implements Mediator {
     @Override
     @SuppressWarnings("unchecked")
     public <T> T dispatch(Request<T> request) {
-        
+
         // Validate request
         if (request == null) throw new NullPointerException("Null request");
 
@@ -36,10 +36,13 @@ public class MediatorImpl implements Mediator {
         final Class<?> requestType = request.getClass();
 
         // Get the request's response type
-        final Class<T> responseType = (Class<T>) ((ParameterizedType) requestType.getGenericInterfaces()[0]).getActualTypeArguments()[0];
+        Class<T> responseClass;
+        Type responseType = ((ParameterizedType) (requestType.getGenericInterfaces())[0]).getActualTypeArguments()[0];
+        if (responseType instanceof ParameterizedType) responseClass = (Class<T>) ((ParameterizedType) responseType).getRawType();
+        else responseClass = (Class<T>) responseType;
 
         // Retrieve the hanlders beans based on request and response types.
-        final String[] handlers = context.getBeanNamesForType(ResolvableType.forClassWithGenerics(Handler.class, requestType, responseType));
+        final String[] handlers = context.getBeanNamesForType(ResolvableType.forClassWithGenerics(Handler.class, requestType, responseClass));
 
         // Validate handler existence
         if (handlers.length == 0) throw new IllegalStateException("No handler is registered to handle the Request");
@@ -52,7 +55,7 @@ public class MediatorImpl implements Mediator {
 
         // Return the handler's response
         return handler.handle(request);
-        
+
     }
 
 }
