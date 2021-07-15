@@ -1,0 +1,6 @@
+url: jdbc:postgresql://localhost:5432/ehroute_identity
+username: ${DB_USER}
+password: ${DB_PASSWORD}
+driver: org.postgresql.Driver
+changeLogFile: src/main/resources/db/db.changelog-master.yml
+outputChangeLogFile: src/main/resources/db/changelog/db.changelog.yml

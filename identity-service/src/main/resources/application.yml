@@ -2,24 +2,24 @@ server:
   port: 6001
   servlet.context-path: /identity
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: https://ehroute-discovery-service.herokuapp.com/eureka/
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: https://ehroute-discovery-service.herokuapp.com/eureka/
 
 spring:
-  boot:
-    admin:
-      client:
-        url: http://localhost:8080
+  # boot:
+  #   admin:
+  #     client:
+  #       url: http://localhost:8080
   application:
     name: identity-service
   liquibase:
-    change-log: classpath:/db/db.changelog-master.yaml
-    enabled: true
+    change-log: classpath:/db/db.changelog-master.yml
+    enabled: true # Liquibase migration execution on startup
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/ehroute?schema=business&autoReconnect=true
-    username: postgresql
+    url: r2dbc:postgresql://localhost:5432/ehroute_identity?autoReconnect=true
+    username: ${DB_USER}
     password: ${DB_PASSWORD}
     #pool:
       #enabled: true

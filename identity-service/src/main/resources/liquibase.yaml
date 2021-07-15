@@ -1,6 +1,0 @@
-url: jdbc:postgresql://localhost:5432/ehroutedb?currentSchema=business
-username: postgresql
-password: ${DB_PASSWORD}
-driver: org.postgresql.Driver
-changeLogFile: src/main/resources/db/db.changelog-master.yaml
-outputChangeLogFile: src/main/resources/db/changelog/liquibase-outputChangeLog.xml
