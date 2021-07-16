@@ -1,7 +1,12 @@
 version: 2.1
 
 parameters:
-  # This parameter is used to trigger the main workflow
+
+  trigger-branch: 
+    default: production
+    type: string
+
+  # Used to trigger the main workflow
   trigger:
     type: boolean
     default: true
@@ -23,6 +28,10 @@ parameters:
     default: false
 
   auth-service:
+    type: boolean
+    default: false
+
+  identity-service:
     type: boolean
     default: false
 
@@ -48,9 +57,22 @@ executors:
           password: $DOCKER_PASS
 
 jobs:
+
+  # ---------------------------------------------------------------------------- #
+  #                                    Trigger                                   #
+  # ---------------------------------------------------------------------------- #
+  # region
+
   trigger-workflows:
+
+    filters:
+      branches:
+        only:
+          - << pipeline.parameters.trigger-branch >>
+
     docker:
       - image: cimg/base:stable
+
     steps:
       - checkout
       - run:
@@ -65,6 +87,13 @@ jobs:
             MONOREPO_DEBUG: "true"
             # (optional) additional CI parameters to include in the pipeline (must be a valid JSON)
             CI_PARAMETERS: '{ "deploy": true }'
+
+  # endregion
+
+  # ---------------------------------------------------------------------------- #
+  #                                     Build                                    #
+  # ---------------------------------------------------------------------------- #
+  # region
 
   build:
 
@@ -89,10 +118,10 @@ jobs:
 
       - run: echo "Building << parameters.package_name >> ..."
 
-#      - persist_to_workspace:
-#        root: ~/project
-#        paths:
-#          - << parameters.package_name >>
+      #  - persist_to_workspace:
+      #    root: ~/project
+      #    paths:
+      #      - << parameters.package_name >>
 
       - setup_remote_docker:
           version: 19.03.13
@@ -126,11 +155,17 @@ jobs:
           echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
           docker push muizzmahdy/ehroute-<< parameters.package_name >>:$TAG
 
-      # store raw contents of src code
-#      - store_artifacts:
-#        path: target/classes
-#        destination: config-server-artifacts
+      #   # store raw contents of src code
+      #  - store_artifacts:
+      #    path: target/classes
+      #    destination: config-server-artifacts
 
+    # endregion
+
+  # ---------------------------------------------------------------------------- #
+  #                                    Deploy                                    #
+  # ---------------------------------------------------------------------------- #
+  # region
 
   deploy:
     parameters:
@@ -151,6 +186,8 @@ jobs:
           name: Deploy
           command: echo "Deploying << parameters.package_name >> (<< pipeline.parameters.deploy >>) ..."
 
+  # endregion
+
 workflows:
   version: 2.1
 
@@ -162,9 +199,10 @@ workflows:
       - trigger-workflows
 
 
-  ############################################################
-  ## Services Workflows
-  ############################################################
+  # ---------------------------------------------------------------------------- #
+  #                              Services Workflows                              #
+  # ---------------------------------------------------------------------------- #
+  # region
 
   config-server:
     when: << pipeline.parameters.config-server >>
@@ -201,6 +239,13 @@ workflows:
           package_name: auth-service
           name: auth-service-build
 
+  identity-service:
+    when: << pipeline.parameters.identity-service >>
+    jobs:
+      - build:
+          package_name: identity-service
+          name: identity-service-build
+
   patient-service:
     when: << pipeline.parameters.patient-service >>
     jobs:
@@ -214,9 +259,10 @@ workflows:
       - build:
           package_name: provider-service
           name: provider-service-build
+    # - deploy:
+    #     package_name: provider-service
+    #     name: provider-service-deploy
+    #     requires:
+    #       - provider-service-build
 
-#     - deploy:
-#         package_name: provider-service
-#         name: provider-service-deploy
-#         requires:
-#           - provider-service-build
+  # endregion
