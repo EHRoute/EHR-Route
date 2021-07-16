@@ -24,7 +24,7 @@
 		<repackage.classifier/>
 		<spring-native.version>0.10.1</spring-native.version>
 		<org.projectlombok.version>1.18.16</org.projectlombok.version>
-		<jooq.version>3.15.0</jooq.version>
+		<jooq.version>3.15.1</jooq.version>
 		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
 		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
 		<sonar.projectKey>ehroute:identity-service</sonar.projectKey>
@@ -217,6 +217,7 @@
 			<plugin>
 				<groupId>org.jooq</groupId>
 				<artifactId>jooq-codegen-maven</artifactId>
+				<version>${jooq.version}</version>
 				<executions>
 					<execution>
 
@@ -237,28 +238,23 @@
 							</jdbc>
 
 							<generator>
-							
+
+								<name>org.jooq.codegen.JavaGenerator</name>
+
 								<database>
-									<name>org.jooq.meta.extensions.liquibase.LiquibaseDatabase</name>
+									<name>org.jooq.meta.postgres.PostgresDatabase</name>
+									<inputSchema>public</inputSchema>
+									<includes>.*</includes>
+									<excludes>
+										  databasechangelog
+										| databasechangeloglock
+									</excludes>
 									<properties>
 
 										<property>
 											<key>scripts</key>
 											<value>src/main/resources/db/db.changelog-master.yml</value>
 										</property>
-
-										<property>
-											<key>includeLiquibaseTables</key>
-											<!-- Do not include liquibase's ChangeLog tables -->
-											<value>false</value>
-										</property>
-
-										<!-- Properties prefixed "database." will be passed on to the 
-											liquibase.database.Database class if a matching setter is found -->
-										<!--<property>
-											<key>database.liquibaseSchemaName</key>
-											<value>lb</value>
-										</property>-->
 
 										<property>
 											<key>changeLogParameters.contexts</key>
@@ -268,22 +264,19 @@
 									</properties>
 								</database>
 
+								<target>
+									<packageName>ehroute.identityservice.entities.db</packageName>
+									<directory>src/main/java</directory>
+								</target>
+
 								<generate>
+									<deprecated>false</deprecated>
 									<pojos>false</pojos>
 									<daos>false</daos>
 									<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
 									<javaTimeTypes>true</javaTimeTypes>
 									<fluentSetters>true</fluentSetters>
 								</generate>
-
-								<target>
-									<packageName>
-										com.tej.JooQDemo.jooq.sample.model
-									</packageName>
-									<directory>
-										target/generated-sources/jooq
-									</directory>
-								</target>
 
 							</generator>
 
@@ -383,7 +376,7 @@
 
 			<!-- #region Spring AOT -->
 
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.springframework.experimental</groupId>
 				<artifactId>spring-aot-maven-plugin</artifactId>
 				<version>${spring-native.version}</version>
@@ -401,7 +394,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 
 			<!-- #endregion -->
 
