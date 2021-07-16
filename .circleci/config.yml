@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 parameters:
 
@@ -64,11 +64,6 @@ jobs:
   # region
 
   trigger-workflows:
-
-    filters:
-      branches:
-        only:
-          - << pipeline.parameters.trigger-branch >>
 
     docker:
       - image: cimg/base:stable
@@ -137,7 +132,8 @@ jobs:
       # Cache dependencies
       - save_cache:
           key: v1-dependencies-{{ checksum "pom.xml" }}
-          paths: ~/.m2
+          paths: 
+            - ~/.m2
 
       # Upload code coverage report
       - run: bash <(curl -s https://codecov.io/bash)
@@ -189,7 +185,14 @@ jobs:
   # endregion
 
 workflows:
-  version: 2.1
+  version: 2
+  nightly:
+     triggers:
+       - schedule:
+           filters:
+             branches:
+               only:
+                 - << pipeline.parameters.trigger-branch >>
 
   # The main workflow responsible for triggering all other workflows
   # in which changes are detected.
@@ -197,7 +200,6 @@ workflows:
     when: << pipeline.parameters.trigger >>
     jobs:
       - trigger-workflows
-
 
   # ---------------------------------------------------------------------------- #
   #                              Services Workflows                              #
