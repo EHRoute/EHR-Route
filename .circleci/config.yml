@@ -2,6 +2,12 @@ version: 2.1
 
 parameters:
 
+  # ---------------------------------------------------------------------------- #
+  #                                    Trigger                                   #
+  # ---------------------------------------------------------------------------- #
+  # region
+
+  # Branch that triggers builds
   trigger-branch: 
     default: production
     type: string
@@ -10,6 +16,13 @@ parameters:
   trigger:
     type: boolean
     default: true
+
+  # endregion
+
+  # ---------------------------------------------------------------------------- #
+  #                                   Services                                   #
+  # ---------------------------------------------------------------------------- #
+  # region
 
   config-server:
     type: boolean
@@ -43,10 +56,18 @@ parameters:
     type: boolean
     default: false
 
-  # Custom parameters
+  # endregion
+
+  # ---------------------------------------------------------------------------- #
+  #                                  Deployment                                  #
+  # ---------------------------------------------------------------------------- #
+  # region
+
   deploy:
     type: boolean
     default: false
+
+  #endregion
 
 executors:
   jdk11:
@@ -185,7 +206,12 @@ jobs:
   # endregion
 
 workflows:
-  version: 2.1
+  version: 2
+
+  # ---------------------------------------------------------------------------- #
+  #                                    Trigger                                   #
+  # ---------------------------------------------------------------------------- #
+  # region
 
   # The main workflow responsible for triggering all other workflows
   # in which changes are detected.
@@ -193,9 +219,11 @@ workflows:
     when: << pipeline.parameters.trigger >>
     jobs:
       - trigger-workflows
+  
+  # endregion
 
   # ---------------------------------------------------------------------------- #
-  #                              Services Workflows                              #
+  #                                   Services                                   #
   # ---------------------------------------------------------------------------- #
   # region
 
