@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 
 parameters:
 
@@ -156,7 +156,7 @@ jobs:
       #    path: target/classes
       #    destination: config-server-artifacts
 
-    # endregion
+  # endregion
 
   # ---------------------------------------------------------------------------- #
   #                                    Deploy                                    #
@@ -185,14 +185,7 @@ jobs:
   # endregion
 
 workflows:
-  version: 2
-  nightly:
-     triggers:
-       - schedule:
-           filters:
-             branches:
-               only:
-                 - << pipeline.parameters.trigger-branch >>
+  version: 2.1
 
   # The main workflow responsible for triggering all other workflows
   # in which changes are detected.
@@ -210,6 +203,9 @@ workflows:
     when: << pipeline.parameters.config-server >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: config-server
           name: config-server-build
 
@@ -217,6 +213,9 @@ workflows:
     when: << pipeline.parameters.discovery-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: discovery-service
           name: discovery-service-build
 
@@ -224,6 +223,9 @@ workflows:
     when: << pipeline.parameters.gateway-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: gateway-service
           name: gateway-service-build
 
@@ -231,6 +233,9 @@ workflows:
     when: << pipeline.parameters.account-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: account-service
           name: account-service-build
 
@@ -238,6 +243,9 @@ workflows:
     when: << pipeline.parameters.auth-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: auth-service
           name: auth-service-build
 
@@ -245,6 +253,9 @@ workflows:
     when: << pipeline.parameters.identity-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: identity-service
           name: identity-service-build
 
@@ -252,6 +263,9 @@ workflows:
     when: << pipeline.parameters.patient-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: patient-service
           name: patient-service-build
 
@@ -259,6 +273,9 @@ workflows:
     when: << pipeline.parameters.provider-service >>
     jobs:
       - build:
+          filters:
+            branches:
+              only: << pipeline.parameters.trigger-branch >>
           package_name: provider-service
           name: provider-service-build
     # - deploy:
