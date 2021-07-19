@@ -39,3 +39,7 @@ logging:
   level:
     org.springframework: Error
     org.springframework.data.r2dbc: Debug
+
+springdoc:
+  swagger-ui:
+    path: /swagger

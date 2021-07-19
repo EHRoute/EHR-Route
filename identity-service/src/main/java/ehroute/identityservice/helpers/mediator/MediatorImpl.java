@@ -27,7 +27,7 @@ public class MediatorImpl implements Mediator {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T dispatch(Request<T> request) {
+    public <T> T dispatch(ApiRequest<T> request) {
 
         // Validate request
         if (request == null) throw new NullPointerException("Null request");
@@ -51,7 +51,7 @@ public class MediatorImpl implements Mediator {
         if (handlers.length > 1) throw new IllegalStateException("More than one handlers found");
 
         // Get the handler
-        final Handler<Request<T>, T> handler = (Handler<Request<T>, T>) context.getBean(handlers[0]);
+        final Handler<ApiRequest<T>, T> handler = (Handler<ApiRequest<T>, T>) context.getBean(handlers[0]);
 
         // Return the handler's response
         return handler.handle(request);

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import ehroute.identityservice.models.LoginModel;
+import ehroute.identityservice.models.view.LoginModel;
 import ehroute.identityservice.utilities.app.ApiEndpoints;
 import sh.ory.hydra.ApiException;
 import sh.ory.hydra.Configuration;

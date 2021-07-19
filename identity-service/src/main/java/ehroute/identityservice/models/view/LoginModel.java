@@ -1,4 +1,4 @@
-package ehroute.identityservice.models;
+package ehroute.identityservice.models.view;
 
 import lombok.Data;
 

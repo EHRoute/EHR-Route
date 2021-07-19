@@ -7,5 +7,5 @@ public interface Mediator {
     * @param request Request that will be handled
     * @return        Result of the executed handler
     */
-   <T> T dispatch(final Request<T> request);
+   <T> T dispatch(final ApiRequest<T> request);
 }

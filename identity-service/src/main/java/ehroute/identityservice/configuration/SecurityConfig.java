@@ -17,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
-@EnableWebFluxSecurity
-@EnableReactiveMethodSecurity
+// @EnableWebFluxSecurity
+// @EnableReactiveMethodSecurity
 public class SecurityConfig {
 
     private String[] publicRoutes = {
@@ -33,7 +33,14 @@ public class SecurityConfig {
         "/logout",
         "/auth/**",
         "/user/register",
-        "/files/**"
+        "/files/**",
+        "/swagger/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/v3/api-docs/**",
+        "/test",
+        "/account/**",
+        "/register"
     };
 
 
@@ -62,22 +69,9 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeExchange(auth -> auth
             .pathMatchers(publicRoutes).permitAll()
-            .anyExchange().authenticated()
+            // .anyExchange().authenticated()
         )
-        // .formLogin(spec -> {})
         .build();
-    }
-
-
-    @Bean
-    @Primary // TODO: Remove
-    public MapReactiveUserDetailsService userDetailsService() {
-        UserDetails userDetails = User
-        .withUsername("user")
-        .password(passwordEncoder().encode("password"))
-        .roles("USER")
-        .build();
-        return new MapReactiveUserDetailsService(userDetails);
     }
 
 }

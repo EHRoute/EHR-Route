@@ -8,4 +8,10 @@ public class ApiEndpoints {
         public static final String Consent = "/consent";
     }
 
+    public class Account {
+        public static final String Main = "/account";
+        public static final String Current = "/current";
+        public static final String Register = "/register";
+    }
+
 }
