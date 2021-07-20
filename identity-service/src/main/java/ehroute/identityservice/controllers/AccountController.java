@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ehroute.identityservice.entities.domain.Account;
 import ehroute.identityservice.helpers.mediator.ApiResponse;
 import ehroute.identityservice.helpers.mediator.Mediator;
-import ehroute.identityservice.models.pagination.ResourcePage;
-import ehroute.identityservice.models.pagination.ResourcePageRequest;
-import ehroute.identityservice.models.pagination.ResourceSort;
+import ehroute.identityservice.models.resource.ResourcePage;
+import ehroute.identityservice.models.resource.ResourceSort;
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.utilities.app.ApiEndpoints;
 import reactor.core.publisher.Mono;
@@ -47,6 +46,6 @@ public class AccountController {
         var ttt = sort.getOrder().toString();
         return Mono.empty();
     }
-    
+
 
 }

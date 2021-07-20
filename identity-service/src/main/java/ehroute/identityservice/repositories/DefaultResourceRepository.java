@@ -3,8 +3,11 @@ package ehroute.identityservice.repositories;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jooq.DSLContext;
+import org.jooq.Field;
 import org.jooq.TableField;
 import org.jooq.impl.TableImpl;
 import org.jooq.impl.UpdatableRecordImpl;
@@ -13,16 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
 import ehroute.identityservice.entities.app.BaseEntity;
+import ehroute.identityservice.models.resource.ResourceQuery;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 
 @Transactional
+@SuppressWarnings("unchecked")
 public abstract class DefaultResourceRepository<R extends BaseEntity, Y extends UpdatableRecordImpl<Y>, T extends TableImpl<Y>>
 implements ResourceRepository<R, Y, T> {
 
 
-    @Autowired private DSLContext ctx;
+    @Autowired private DSLContext db;
     private Class<R> entityType;
 
     public DefaultResourceRepository() {
@@ -38,7 +43,7 @@ implements ResourceRepository<R, Y, T> {
         return Mono.from(
 
             // Insert entity and return its id field (first field)
-            ctx
+            db
             .insertInto(entityTable)
             .set(record)
             .returningResult(entityTable.fields("id"))
@@ -56,18 +61,10 @@ implements ResourceRepository<R, Y, T> {
 
     public Mono<R> findById(Long id, TableImpl<Y> entityTable) {
 
-        // Get the id field of the entity
-        var idField = Arrays.asList(entityTable.fields("id")).stream()
-        .filter(f -> f.getName().equals("id"))
-        .findFirst();
-
-        // Verify ID field
-        if (!idField.isPresent()) throw new NotFoundException("Table has no id field");
-
         return Mono.from(
         
             // Select by id
-            ctx.selectFrom(entityTable).where(idField.get().like(Long.toString(id))).limit(1)
+            db.selectFrom(entityTable).where(getIdField(entityTable).like(Long.toString(id))).limit(1)
             
         ).flatMap(r -> {
 
@@ -84,7 +81,7 @@ implements ResourceRepository<R, Y, T> {
         return Mono.from(
         
             // Select by field and value
-            ctx.selectFrom(field.getTable()).where(field.like(fieldValue)).limit(1)
+            db.selectFrom(field.getTable()).where(field.like(fieldValue)).limit(1)
 
         ).flatMap(r -> {
 
@@ -101,16 +98,46 @@ implements ResourceRepository<R, Y, T> {
         return Flux.from(
         
             // Select by field
-            ctx.selectFrom(field.getTable()).where(field.like(fieldValue))
+            db.selectFrom(field.getTable()).where(field.like(fieldValue))
 
         ).map(r -> r.into(entityType)); // Map into specified type
 
     }
 
 
-    public Flux<R> findAllWithPagination(TableImpl<Y> entityTable) {
+    public Flux<R> findAllByQuery(TableImpl<Y> entityTable, ResourceQuery query) {
 
-        return null;
+        var hasSortFields = query.getSortFields().size() > 0;
+        var usesSeek = (!StringUtils.isEmpty(Long.toString(query.getPage().getSeekId())) && !hasSortFields);
+        var usesOffset = !StringUtils.isEmpty(Integer.toString(query.getPage().getOffset()));
+
+        // Construct initial query
+        var resourceQuery = db
+        .selectFrom(entityTable)
+        .where(query.getFilters());
+
+        // Order by custom sort fields if specified
+        if (hasSortFields) resourceQuery.orderBy(query.getSortFields());
+
+        // Using seek for pagination (requires Id ordering, and no custom sort fields)
+        if (usesSeek) {
+
+            resourceQuery
+            .orderBy(getIdField(entityTable).asc())
+            .seek(query.getPage().getSeekId())
+            .limit(query.getPage().getLimit());
+
+        } 
+        // Using offset for pagination
+        else if (usesOffset) {
+
+            resourceQuery
+            .offset(query.getPage().getOffset())
+            .limit(query.getPage().getLimit());
+
+        }
+
+        return Flux.from(resourceQuery).map(r -> r.into(entityType));
 
     }
 
@@ -123,7 +150,7 @@ implements ResourceRepository<R, Y, T> {
         return Mono.from(
 
             // Update entity
-            ctx
+            db
             .update(entityTable)
             .set(record)
 
@@ -138,29 +165,36 @@ implements ResourceRepository<R, Y, T> {
 
 
     public Mono<Integer> deleteById(Long id, TableImpl<Y> entityTable) {
-
-        // Get the id field of the entity
-        var idField = Arrays.asList(entityTable.fields("id")).stream()
-        .filter(f -> f.getName().equals("id"))
-        .findFirst();
-
-        // Verify ID field
-        if (!idField.isPresent()) throw new NotFoundException("Table has no id field");
-
         return Mono.from(
-
-            // Delete by id
-            ctx.deleteFrom(entityTable).where(idField.get().like(Long.toString(id)))
-
+            db.deleteFrom(entityTable).where(getIdField(entityTable).like(Long.toString(id)))
         );
     }
 
 
-    @SuppressWarnings("unchecked")
+    //#region Helpers 
+
+
     private void initializeEntityType() {
         Type genericEntityType = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         if (genericEntityType instanceof ParameterizedType) entityType = (Class<R>) ((ParameterizedType) genericEntityType).getRawType();
         else entityType = (Class<R>) genericEntityType;
     }
 
+
+    private Field<Long> getIdField(TableImpl<Y> entityTable) {
+
+        // Get the Id field of the entity
+        var idField = Arrays.asList(entityTable.fields("id")).stream()
+        .filter(f -> f.getName().equals("id"))
+        .findFirst();
+
+        // Verify Id field
+        if (!idField.isPresent()) throw new NotFoundException("Table has no Id field");
+
+        return (Field<Long>) idField.get();
+
+    }
+
+
+    //#endregion
 }

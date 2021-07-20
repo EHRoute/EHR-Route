@@ -37,11 +37,6 @@ public class CreateAccountHandler implements Handler<CreateAccountCommand, Mono<
             return Mono.just(new ApiResponse(acc, true, HttpStatus.CREATED.value(), null));
         });
 
-        // return accountRepository.findFirstByField(Accounts.ACCOUNTS.ID, Long.toString(2l))
-        // .flatMap(acc -> {
-        //     return Mono.just(new ApiResponse(acc, true, HttpStatus.OK.value(), null));
-        // });
-
     }
 
 }

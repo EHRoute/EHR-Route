@@ -1,4 +1,4 @@
-package ehroute.identityservice.models.pagination;
+package ehroute.identityservice.models.resource;
 
 public enum SortOrder {
 

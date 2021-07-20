@@ -1,4 +1,4 @@
-package ehroute.identityservice.models.pagination;
+package ehroute.identityservice.models.resource;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,7 @@ public class ResourcePage {
 
     private int number;
 	private int offset;
+	private Long seekId; // The ID which is used as a seek predicate for the Seek pagination method
 	private int limit;
 	private int size;
 
