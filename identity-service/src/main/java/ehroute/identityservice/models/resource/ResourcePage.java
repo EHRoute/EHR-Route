@@ -1,5 +1,7 @@
 package ehroute.identityservice.models.resource;
 
+import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -26,6 +28,14 @@ public class ResourcePage {
 		offset = Math.max(0, (this.number - 1) * limit);
 		limit = Math.max(1, this.size);
 
+	}
+
+	public Optional<Long> getSeekIdOptional() {
+		return Optional.ofNullable(seekId);
+	}
+
+	public Optional<Integer> getOffsetOptional() {
+		return Optional.ofNullable(offset);
 	}
 
 }
