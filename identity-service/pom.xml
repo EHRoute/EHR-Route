@@ -138,6 +138,12 @@
 		<!-- #region Dev -->
 
 		<dependency>
+			<groupId>io.github.muizmahdi</groupId>
+			<artifactId>spring-jooq-utils</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jooq</artifactId>
 		</dependency>

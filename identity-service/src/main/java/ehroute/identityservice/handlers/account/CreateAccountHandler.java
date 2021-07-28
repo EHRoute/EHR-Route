@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.muizz.spring.jooq.utils.resource.ResourcePage;
+import com.muizz.spring.jooq.utils.resource.ResourceQuery;
+
 import org.jooq.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +18,6 @@ import ehroute.identityservice.entities.domain.Account;
 import ehroute.identityservice.helpers.annotations.RequestHandler;
 import ehroute.identityservice.helpers.mediator.ApiResponse;
 import ehroute.identityservice.helpers.mediator.Handler;
-import ehroute.identityservice.models.resource.ResourcePage;
-import ehroute.identityservice.models.resource.ResourceQuery;
-import ehroute.identityservice.models.resource.ResourceSort;
-import ehroute.identityservice.models.resource.SortOrder;
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.repositories.account.AccountRepository;
 import ehroute.identityservice.repositories.account.AccountRepositoryImpl;

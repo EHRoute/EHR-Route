@@ -3,16 +3,16 @@ package ehroute.identityservice.controllers;
 import java.security.Principal;
 import java.util.Map;
 
+import com.muizz.spring.jooq.utils.resource.ResourcePage;
+import com.muizz.spring.jooq.utils.resource.ResourceSort;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ehroute.identityservice.entities.domain.Account;
 import ehroute.identityservice.helpers.mediator.ApiResponse;
 import ehroute.identityservice.helpers.mediator.Mediator;
-import ehroute.identityservice.models.resource.ResourcePage;
-import ehroute.identityservice.models.resource.ResourceSort;
+
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.utilities.app.ApiEndpoints;
 import reactor.core.publisher.Mono;

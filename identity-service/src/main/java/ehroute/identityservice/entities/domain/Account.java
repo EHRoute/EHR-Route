@@ -2,9 +2,10 @@ package ehroute.identityservice.entities.domain;
 
 import java.time.OffsetDateTime;
 
+import com.muizz.spring.jooq.utils.entities.BaseEntity;
+
 import org.springframework.data.relational.core.mapping.Column;
 
-import ehroute.identityservice.entities.app.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
