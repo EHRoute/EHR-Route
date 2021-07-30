@@ -5,8 +5,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import ehroute.identityservice.helpers.mediator.ApiResponse;
-import ehroute.identityservice.helpers.mediator.ApiRequest;
+import com.muizz.spring.mediator.payload.ApiResponse;
+import com.muizz.spring.mediator.payload.ApiRequest;
 import lombok.Data;
 import reactor.core.publisher.Mono;
 

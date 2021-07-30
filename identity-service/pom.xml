@@ -144,6 +144,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>io.github.muizmahdi</groupId>
+			<artifactId>spring-mediator</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jooq</artifactId>
 		</dependency>

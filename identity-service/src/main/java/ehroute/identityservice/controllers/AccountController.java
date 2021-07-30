@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ehroute.identityservice.helpers.mediator.ApiResponse;
-import ehroute.identityservice.helpers.mediator.Mediator;
+import com.muizz.spring.mediator.payload.ApiResponse;
+import com.muizz.spring.mediator.core.Mediator;
 
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.utilities.app.ApiEndpoints;

@@ -15,12 +15,11 @@ import org.springframework.http.HttpStatus;
 
 import ehroute.identityservice.entities.db.tables.Accounts;
 import ehroute.identityservice.entities.domain.Account;
-import ehroute.identityservice.helpers.annotations.RequestHandler;
-import ehroute.identityservice.helpers.mediator.ApiResponse;
-import ehroute.identityservice.helpers.mediator.Handler;
+import com.muizz.spring.mediator.annotations.RequestHandler;
+import com.muizz.spring.mediator.payload.ApiResponse;
+import com.muizz.spring.mediator.core.Handler;
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.repositories.account.AccountRepository;
-import ehroute.identityservice.repositories.account.AccountRepositoryImpl;
 import reactor.core.publisher.Mono;
 
 @RequestHandler
@@ -43,7 +42,7 @@ public class CreateAccountHandler implements Handler<CreateAccountCommand, Mono<
         // return accountRepository.insert(account, Accounts.ACCOUNTS).flatMap(acc -> {
         //     return Mono.just(new ApiResponse(acc, true, HttpStatus.CREATED.value(), null));
         // });
-        
+
         var query = new ResourceQuery();
         var page = new ResourcePage();
         // page.setNumber(1);
