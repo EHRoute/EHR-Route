@@ -32,7 +32,7 @@ public class GatewayServiceApplication {
 				.uri("lb://patient-service")
 				.id("PatientService"))
 			.route(r -> r
-				.path("/auth/**")
+				.path("/identity/**")
 				.uri("lb://identity-service")
 				.id("IdentityService"))
 		.build();
