@@ -33,8 +33,8 @@ public class GatewayServiceApplication {
 				.id("PatientService"))
 			.route(r -> r
 				.path("/auth/**")
-				.uri("lb://auth-service")
-				.id("AuthService"))
+				.uri("lb://identity-service")
+				.id("IdentityService"))
 		.build();
 	}
 
