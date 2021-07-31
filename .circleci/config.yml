@@ -36,14 +36,6 @@ parameters:
     type: boolean
     default: false
 
-  account-service:
-    type: boolean
-    default: false
-
-  auth-service:
-    type: boolean
-    default: false
-
   identity-service:
     type: boolean
     default: false
