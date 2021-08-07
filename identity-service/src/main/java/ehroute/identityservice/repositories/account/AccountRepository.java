@@ -1,6 +1,6 @@
 package ehroute.identityservice.repositories.account;
 
-import com.muizz.spring.jooq.utils.repository.ResourceRepository;
+import com.muizz.sajooq.repository.ResourceRepository;
 
 import org.springframework.stereotype.Repository;
 

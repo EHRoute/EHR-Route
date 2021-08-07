@@ -2,7 +2,7 @@ package ehroute.identityservice.entities.domain;
 
 import java.time.OffsetDateTime;
 
-import com.muizz.spring.jooq.utils.entities.BaseEntity;
+import com.muizz.sajooq.entities.BaseEntity;
 
 import org.springframework.data.relational.core.mapping.Column;
 

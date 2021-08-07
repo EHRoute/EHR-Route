@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.muizz.spring.jooq.utils.resource.ResourcePage;
-import com.muizz.spring.jooq.utils.resource.ResourceQuery;
+import com.muizz.sajooq.resource.ResourcePage;
+import com.muizz.sajooq.resource.ResourceQuery;
 
 import org.jooq.Condition;
 import org.springframework.beans.factory.annotation.Autowired;

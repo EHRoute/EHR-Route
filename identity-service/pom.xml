@@ -156,7 +156,7 @@
 
 		<dependency>
 			<groupId>io.github.muizmahdi</groupId>
-			<artifactId>spring-jooq-utils</artifactId>
+			<artifactId>sajooq</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 
@@ -256,85 +256,6 @@
 
 	<build>
 		<plugins>
-
-			<!-- #region JOOQ Codegen -->
-
-			<plugin>
-				<groupId>org.jooq</groupId>
-				<artifactId>jooq-codegen-maven</artifactId>
-				<version>${jooq.version}</version>
-				<executions>
-
-					<!-- Generates JOOQ classes from liquibase changelog -->
-					<execution>
-
-						<id>generate-entity</id>
-						<phase>entity-initialization</phase>
-
-						<goals>
-							<goal>generate</goal>
-						</goals>
-
-						<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.15.0.xsd">
-
-							<jdbc>
-								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://localhost:5432/${db.name}</url>
-								<user>${db.user}</user>
-								<password>${db.password}</password>
-							</jdbc>
-
-							<generator>
-
-								<name>org.jooq.codegen.JavaGenerator</name>
-
-								<database>
-									<name>org.jooq.meta.postgres.PostgresDatabase</name>
-									<inputSchema>public</inputSchema>
-									<includes>.*</includes>
-									<excludes>
-										  databasechangelog
-										| databasechangeloglock
-									</excludes>
-									<properties>
-
-										<property>
-											<key>scripts</key>
-											<value>src/main/resources/db/db.changelog-master.yml</value>
-										</property>
-
-										<property>
-											<key>changeLogParameters.contexts</key>
-											<value>!test</value>
-										</property>
-
-									</properties>
-								</database>
-
-								<target>
-									<packageName>ehroute.identityservice.entities.db</packageName>
-									<directory>src/main/java</directory>
-								</target>
-
-								<generate>
-									<deprecated>false</deprecated>
-									<pojos>false</pojos>
-									<daos>false</daos>
-									<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
-									<javaTimeTypes>true</javaTimeTypes>
-									<fluentSetters>true</fluentSetters>
-								</generate>
-
-							</generator>
-
-						</configuration>
-
-					</execution>
-
-				</executions>
-			</plugin>
-
-			<!-- #endregion -->
 
 			<!-- #region Liquibase-Maven & Liquibase-Hibernate -->
 

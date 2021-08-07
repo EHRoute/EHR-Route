@@ -3,8 +3,8 @@ package ehroute.identityservice.controllers;
 import java.security.Principal;
 import java.util.Map;
 
-import com.muizz.spring.jooq.utils.resource.ResourcePage;
-import com.muizz.spring.jooq.utils.resource.ResourceSort;
+import com.muizz.sajooq.resource.ResourcePage;
+import com.muizz.sajooq.resource.ResourceSort;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
