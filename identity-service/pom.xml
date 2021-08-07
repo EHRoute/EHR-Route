@@ -20,6 +20,7 @@
 
 	
 	<properties>
+
 		<java.version>11</java.version>
 		<repackage.classifier/>
 		<spring-native.version>0.10.1</spring-native.version>
@@ -27,13 +28,29 @@
 		<jooq.version>3.15.1</jooq.version>
 		<org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
 		<org.apache.maven.plugins.version>3.8.1</org.apache.maven.plugins.version>
+
+		<!-- #region Liquibase & Hibernate -->
+
+		<liquibase-maven.version>4.4.2</liquibase-maven.version>
+		<liquibase-hibernate5.version>4.4.2</liquibase-hibernate5.version>
+		<hibernate.verion>5.4.6.Final</hibernate.verion>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+		<javassist.version>3.28.0-GA</javassist.version>
+		<jaxb-api.version>2.4.0-b180830.0359</jaxb-api.version>
+
+		<!-- #endregion -->
+
 		<sonar.projectKey>ehroute:identity-service</sonar.projectKey>
 		<sonar.organization>ehroute</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
+		<!-- #region DB environment variables -->
 		<!--suppress UnresolvedMavenProperty -->
-		<app.db>${DB_NAME}</app.db>
-		<app.dbuser>${DB_USER}</app.dbuser>
-		<app.dbpassword>${DB_PASSWORD}</app.dbpassword>
+		<db.name>${DB_NAME}</db.name>
+		<db.user>${DB_USER}</db.user>
+		<db.password>${DB_PASSWORD}</db.password>
+		<!-- #endregion -->
+
 	</properties>
 
 
@@ -150,6 +167,14 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${org.projectlombok.version}</version>
+		</dependency>
+
+		<!-- #region JOOQ -->
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jooq</artifactId>
 		</dependency>
@@ -160,16 +185,25 @@
 			<version>${jooq.version}</version>
 		</dependency>
 
+		<!-- #endregion -->
+
+		<!-- #region Liquibase -->
+
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
+			<!-- <version>${liquibase-core.version}</version> -->
 		</dependency>
 
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-maven-plugin</artifactId>
-			<version>4.1.1</version>
+			<version>${liquibase-maven.version}</version>
 		</dependency>
+
+		<!-- #endregion -->
+
+		<!-- #region Spring Dev -->
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -190,11 +224,9 @@
 			<optional>true</optional>
 		</dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${org.projectlombok.version}</version>
-		</dependency>
+		<!-- #endregion -->
+
+		<!-- #region MapStruct -->
 
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -217,6 +249,8 @@
 
 		<!-- #endregion -->
 
+		<!-- #endregion -->
+
 	</dependencies>
 
 
@@ -230,22 +264,24 @@
 				<artifactId>jooq-codegen-maven</artifactId>
 				<version>${jooq.version}</version>
 				<executions>
+
+					<!-- Generates JOOQ classes from liquibase changelog -->
 					<execution>
 
-						<id>generate-postgre</id>
-						<phase>generate-sources</phase>
+						<id>generate-entity</id>
+						<phase>entity-initialization</phase>
 
 						<goals>
 							<goal>generate</goal>
 						</goals>
 
-						<configuration>
+						<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.15.0.xsd">
 
 							<jdbc>
 								<driver>org.postgresql.Driver</driver>
-								<url>jdbc:postgresql://localhost:5432/${app.db}</url>
-								<user>${app.dbuser}</user>
-								<password>${app.dbpassword}</password>
+								<url>jdbc:postgresql://localhost:5432/${db.name}</url>
+								<user>${db.user}</user>
+								<password>${db.password}</password>
 							</jdbc>
 
 							<generator>
@@ -294,37 +330,76 @@
 						</configuration>
 
 					</execution>
+
 				</executions>
 			</plugin>
 
 			<!-- #endregion -->
 
-			<!-- #region Liquibase -->
+			<!-- #region Liquibase-Maven & Liquibase-Hibernate -->
 
 			<plugin>
 				<groupId>org.liquibase</groupId>
 				<artifactId>liquibase-maven-plugin</artifactId>
-				<version>4.1.1</version>
+				<version>${liquibase-maven.version}</version>
 				<configuration>
 					<propertyFile>src/main/resources/liquibase.yml</propertyFile>
 				</configuration>
 				<dependencies>
+
+					<!-- NOTE: Might be needed -->
 					<dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-data-jpa</artifactId>
+                        <version>${spring-boot.version}</version>
+                    </dependency>
+
+					<!-- NOTE: Might be needed -->
+					<!-- <dependency>
 						<groupId>org.hibernate</groupId>
 						<artifactId>hibernate-core</artifactId>
-						<version>5.4.6.Final</version>
-					</dependency>
+						<version>${hibernate.verion}</version>
+					</dependency> -->
+
 					<dependency>
-						<groupId>javax.xml.bind</groupId>
-						<artifactId>jaxb-api</artifactId>
-						<version>2.4.0-b180830.0359</version>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-envers</artifactId>
+						<version>${hibernate.version}</version>
 					</dependency>
+
+					<dependency>
+                        <groupId>org.liquibase.ext</groupId>
+                        <artifactId>liquibase-hibernate5</artifactId>
+                        <version>${liquibase-hibernate5.version}</version>
+                    </dependency>
+
+					<!-- Bean validation using annotations according to the JSR 380 specification -->
+					<dependency>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                        <version>${validation-api.version}</version>
+                    </dependency>
+
+					<!-- Provides Structural Reflection i.e. to manipulate bytecode and change the implementation of a class at runtime -->
+					<dependency>
+                        <groupId>org.javassist</groupId>
+                        <artifactId>javassist</artifactId>
+                        <version>${javassist.version}</version>
+                    </dependency>
+
+					<!-- Coverts XML to Java objects and vice versa -->
+                    <dependency>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                        <version>${jaxb-api.version}</version>
+                    </dependency>
+
               </dependencies>
 			</plugin>
 
 			<!-- #endregion -->
 
-			<!-- #region Spring Maven -->
+			<!-- #region Spring-Maven -->
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -434,12 +509,6 @@
 
 
 	<repositories>
-
-		<repository>
-			<id>central</id>
-			<name>bintray</name>
-			<url>https://jcenter.bintray.com</url>
-		</repository>
 
 		<repository>
 			<id>spring-releases</id>
