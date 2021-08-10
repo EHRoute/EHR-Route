@@ -1,15 +1,8 @@
 package ehroute.identityservice.handlers.account;
 
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import com.muizz.sajooq.resource.ResourcePage;
-import com.muizz.sajooq.resource.ResourceQuery;
-
-import org.jooq.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -32,6 +25,7 @@ public class CreateAccountHandler implements Handler<CreateAccountCommand, Mono<
     @Override
     public Mono<ApiResponse> handle(CreateAccountCommand request) {
 
+        // Construct Account
         var account = new Account();
         account.setEmail(request.getEmail());
         account.setPassword(request.getPassword());
@@ -39,19 +33,8 @@ public class CreateAccountHandler implements Handler<CreateAccountCommand, Mono<
         account.setCreatedOn(OffsetDateTime.now());
         account.setPublicKey(account.getAddress().getBytes());
 
-        // return accountRepository.insert(account, Accounts.ACCOUNTS).flatMap(acc -> {
-        //     return Mono.just(new ApiResponse(acc, true, HttpStatus.CREATED.value(), null));
-        // });
-
-        var query = new ResourceQuery();
-        var page = new ResourcePage();
-        // page.setNumber(1);
-        // page.setSize(2);
-        page.setLimit(3);
-        page.setSeekId(1l);
-        query.setPage(page);
-
-        return accountRepository.findAllByQuery(query, Accounts.ACCOUNTS).collectList().flatMap(acc -> {
+        // Persist Account
+        return accountRepository.insert(account, Accounts.ACCOUNTS).flatMap(acc -> {
             return Mono.just(new ApiResponse(acc, true, HttpStatus.CREATED.value(), null));
         });
 
