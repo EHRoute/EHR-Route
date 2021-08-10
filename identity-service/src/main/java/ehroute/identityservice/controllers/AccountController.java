@@ -26,7 +26,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AccountController {
 
 
-    @Autowired Mediator mediator;
+    private Mediator mediator;
+
+    @Autowired
+    public AccountController(Mediator mediator) {
+        this.mediator = mediator;
+    }
 
     
     @GetMapping(ApiEndpoints.Account.Current)

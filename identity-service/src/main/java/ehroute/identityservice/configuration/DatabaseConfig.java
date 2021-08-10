@@ -2,6 +2,7 @@ package ehroute.identityservice.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
@@ -15,6 +16,7 @@ import io.r2dbc.spi.ConnectionFactory;
 
 
 @Configuration
+@ComponentScan({"com.muizz.spring.mediator.core"})
 @EnableR2dbcAuditing
 public class DatabaseConfig extends AbstractR2dbcConfiguration {
 
