@@ -20,6 +20,7 @@
 
 	
 	<properties>
+		<!--suppress UnresolvedMavenProperty -->
 
 		<java.version>11</java.version>
 		<repackage.classifier/>
@@ -40,15 +41,20 @@
 
 		<!-- #endregion -->
 
+		<!-- #region Sonar Cloud -->
+
 		<sonar.projectKey>ehroute:identity-service</sonar.projectKey>
 		<sonar.organization>ehroute</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 
-		<!-- #region DB environment variables -->
-		<!--suppress UnresolvedMavenProperty -->
+		<!-- #endregion -->
+
+		<!-- #region DB system properties -->
+
 		<db.name>${DB_NAME}</db.name>
 		<db.user>${DB_USER}</db.user>
 		<db.password>${DB_PASSWORD}</db.password>
+
 		<!-- #endregion -->
 
 	</properties>
@@ -257,6 +263,82 @@
 	<build>
 		<plugins>
 
+			<!-- #region JOOQ Codegen -->
+
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<version>${jooq.version}</version>
+				<executions>
+					<execution>
+
+						<id>generate-postgre</id>
+						<phase>generate-entities</phase>
+
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+
+							<jdbc>
+								<driver>org.postgresql.Driver</driver>
+								<url>jdbc:postgresql://localhost:5432/${db.name}</url>
+								<user>${db.user}</user>
+								<password>${db.password}</password>
+							</jdbc>
+
+							<generator>
+
+								<name>org.jooq.codegen.JavaGenerator</name>
+
+								<database>
+									<name>org.jooq.meta.postgres.PostgresDatabase</name>
+									<inputSchema>public</inputSchema>
+									<includes>.*</includes>
+									<excludes>
+										  databasechangelog
+										| databasechangeloglock
+									</excludes>
+									<properties>
+
+										<property>
+											<key>scripts</key>
+											<value>src/main/resources/db/db.changelog-master.yml</value>
+										</property>
+
+										<property>
+											<key>changeLogParameters.contexts</key>
+											<value>!test</value>
+										</property>
+
+									</properties>
+								</database>
+
+								<target>
+									<packageName>ehroute.identityservice.entities.db</packageName>
+									<directory>src/main/java</directory>
+								</target>
+
+								<generate>
+									<deprecated>false</deprecated>
+									<pojos>false</pojos>
+									<daos>false</daos>
+									<pojosEqualsAndHashCode>true</pojosEqualsAndHashCode>
+									<javaTimeTypes>true</javaTimeTypes>
+									<fluentSetters>true</fluentSetters>
+								</generate>
+
+							</generator>
+
+						</configuration>
+
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- #endregion -->
+
 			<!-- #region Liquibase-Maven & Liquibase-Hibernate -->
 
 			<plugin>
@@ -382,7 +464,7 @@
 			<!-- #endregion -->
 
 			<!-- #region Spring AOT -->
-
+			<!-- Adds ahead-of-time compilation, slows down builds, use for production -->
 			<!-- <plugin>
 				<groupId>org.springframework.experimental</groupId>
 				<artifactId>spring-aot-maven-plugin</artifactId>
@@ -406,7 +488,7 @@
 			<!-- #endregion -->
 
 			<!-- #region Sonar Cloud -->
-
+			<!-- TODO: configure mono-repo / multi-module projects on a single sonar cloud project -->
 			<!--<plugin>
 				<groupId>org.sonarsource.scanner.maven</groupId>
 				<artifactId>sonar-maven-plugin</artifactId>
