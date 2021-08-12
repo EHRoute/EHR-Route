@@ -71,5 +71,5 @@ public class GlobalErrorHandler extends AbstractErrorWebExceptionHandler {
         .body(BodyInserters.fromValue(new ApiResponse(null, false, status, errorAttributesMap)));
 
     }
-    
+
 }
