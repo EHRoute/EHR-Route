@@ -144,6 +144,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.influxdb</groupId>
+			<artifactId>influxdb-client-java</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+
 		<!-- #endregion -->
 
 
@@ -213,8 +219,14 @@
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-webflux-core</artifactId>
+			<version>1.5.10</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-webflux-ui</artifactId>
-			<version>1.5.2</version>
+			<version>1.5.10</version>
 		</dependency>
 
 		<dependency>

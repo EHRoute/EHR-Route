@@ -5,7 +5,7 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import com.muizz.spring.mediator.payload.ApiResponse;
 import com.muizz.spring.mediator.core.Mediator;
 
@@ -13,7 +13,6 @@ import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.utilities.app.ApiEndpoints;
 import reactor.core.publisher.Mono;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -35,7 +34,7 @@ public class AccountController {
     }
 
 
-    @PostMapping(ApiEndpoints.Account.Register)
+    @PostMapping(value = ApiEndpoints.Account.Register)
     public Mono<ApiResponse> create(@RequestBody CreateAccountCommand command) {
         return mediator.dispatch(command);
     }
