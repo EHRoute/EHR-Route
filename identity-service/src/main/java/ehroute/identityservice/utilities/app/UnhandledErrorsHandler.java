@@ -39,7 +39,7 @@ import reactor.core.scheduler.Schedulers;
 
 @Component
 @Order(-2)
-public class GlobalErrorHandler extends AbstractErrorWebExceptionHandler {
+public class UnhandledErrorsHandler extends AbstractErrorWebExceptionHandler {
 
     @Value("${LOG_DB_ORG}")
     private String logDbOrg;
@@ -49,7 +49,7 @@ public class GlobalErrorHandler extends AbstractErrorWebExceptionHandler {
     @Autowired
     private InfluxDBClient logDb;
 
-    public GlobalErrorHandler(
+    public UnhandledErrorsHandler(
         ErrorAttributes errorAttributes, 
         Resources resources, 
         ApplicationContext context,

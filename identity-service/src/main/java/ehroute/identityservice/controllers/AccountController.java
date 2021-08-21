@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.muizz.spring.mediator.payload.ApiResponse;
 import com.muizz.spring.mediator.core.Mediator;
 
+import ehroute.identityservice.exceptions.ResourceNotFoundException;
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.utilities.app.ApiEndpoints;
 import reactor.core.publisher.Mono;
@@ -35,8 +36,9 @@ public class AccountController {
 
 
     @PostMapping(value = ApiEndpoints.Account.Register)
-    public Mono<ApiResponse> create(@RequestBody CreateAccountCommand command) {
-        return mediator.dispatch(command);
+    public Mono<ApiResponse> create(@RequestBody CreateAccountCommand command) throws Exception {
+        throw new ResourceNotFoundException("Account", 2);
+        // return mediator.dispatch(command);
     }
 
 }
