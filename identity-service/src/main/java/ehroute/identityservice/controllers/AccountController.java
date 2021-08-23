@@ -1,14 +1,17 @@
 package ehroute.identityservice.controllers;
 
 import java.security.Principal;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.muizz.spring.mediator.payload.ApiResponse;
 import com.muizz.spring.mediator.core.Mediator;
 
+import ehroute.identityservice.configuration.i18nConfig.RequestLocale;
 import ehroute.identityservice.exceptions.ResourceNotFoundException;
 import ehroute.identityservice.payload.requests.commands.CreateAccountCommand;
 import ehroute.identityservice.utilities.app.ApiEndpoints;
@@ -22,10 +25,12 @@ public class AccountController {
 
 
     private Mediator mediator;
+    private MessageSource messageSource;
 
     @Autowired
-    public AccountController(Mediator mediator) {
+    public AccountController(Mediator mediator, MessageSource messageSource) {
         this.mediator = mediator;
+        this.messageSource = messageSource;
     }
 
     
@@ -36,7 +41,8 @@ public class AccountController {
 
 
     @PostMapping(value = ApiEndpoints.Account.Register)
-    public Mono<ApiResponse> create(@RequestBody CreateAccountCommand command) throws Exception {
+    public Mono<ApiResponse> create(@RequestBody CreateAccountCommand command, Locale locale) throws Exception {
+        System.out.println(messageSource.getMessage("resource.not_found", new Object[] {"Account", "ID", 2}, locale));
         throw new ResourceNotFoundException("Account", 2);
         // return mediator.dispatch(command);
     }
