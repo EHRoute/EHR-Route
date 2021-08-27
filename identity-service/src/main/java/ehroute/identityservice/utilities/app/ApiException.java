@@ -11,5 +11,6 @@ import org.springframework.http.HttpStatus;
 @Target(ElementType.TYPE)
 public @interface ApiException {
     public HttpStatus statusCode();
+    public String errorCode();
     public String messageSource();
 }

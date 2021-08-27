@@ -51,8 +51,11 @@
 
 		<!-- #region DB system properties -->
 
+		<!--suppress UnresolvedMavenProperty -->
 		<db.name>${DB_NAME}</db.name>
+		<!--suppress UnresolvedMavenProperty -->
 		<db.user>${DB_USER}</db.user>
+		<!--suppress UnresolvedMavenProperty -->
 		<db.password>${DB_PASSWORD}</db.password>
 
 		<!-- #endregion -->
@@ -175,7 +178,7 @@
 		<dependency>
 			<groupId>io.github.muizmahdi</groupId>
 			<artifactId>spring-mediator</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.3</version>
 		</dependency>
 
 		<dependency>

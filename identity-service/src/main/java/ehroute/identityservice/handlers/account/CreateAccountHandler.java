@@ -35,7 +35,7 @@ public class CreateAccountHandler implements Handler<CreateAccountCommand, Mono<
 
         // Persist Account
         return accountRepository.insert(account, Accounts.ACCOUNTS).flatMap(acc -> {
-            return Mono.just(new ApiResponse(acc, true, HttpStatus.CREATED.value(), null));
+            return Mono.just(new ApiResponse.Builder().successful().withPayload(acc).ofStatus(HttpStatus.CREATED.value()).build());
         });
 
     }

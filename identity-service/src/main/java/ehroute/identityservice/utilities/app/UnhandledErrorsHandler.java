@@ -78,10 +78,11 @@ public class UnhandledErrorsHandler extends AbstractErrorWebExceptionHandler {
         return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
         .contentType(MediaType.APPLICATION_JSON)
         .body(BodyInserters.fromValue(
-            new ApiResponse(
-                null, false, HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                Map.of("message", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
-            )
+            new ApiResponse.Builder()
+            .failed()
+            .withError(Map.of("message", HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase()))
+            .ofStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .build()
         ));
 
     }
