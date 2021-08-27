@@ -1,6 +1,8 @@
 package ehroute.identityservice.utilities.app;
 
 import com.muizz.spring.mediator.payload.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.codec.Hints;
@@ -18,24 +20,29 @@ import ehroute.identityservice.exceptions.ResourceNotFoundException;
 import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Field;
+import java.util.Locale;
 import java.util.Objects;
 
 @Component
 @Order(-2)
 public class ExceptionsHandler implements WebExceptionHandler {
+
+    @Autowired private MessageSource messageSource;
     
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
 
-        var requestLocale = exchange.getLocaleContext().getLocale();
+        var requestLocale = Objects.requireNonNullElse(exchange.getLocaleContext().getLocale(), Locale.getDefault());
         var response = new ApiResponse.Builder().failed();
         var apiException = getExceptionMetadata(ex);
 
-        // Set the response's error message and code with the exception's specified message and code
-        if (apiException != null) response.withError(new ApiErrorResponse(ex.getMessage(), apiException.errorCode()));
-
-        // Set the status code according to the thrown exception
-        if (ex instanceof ResourceNotFoundException) response.ofStatus(HttpStatus.NOT_FOUND.value());
+        // Set the message and status code according to the thrown exception
+        if (ex instanceof ResourceNotFoundException && apiException != null) {
+            response.withError(new ApiErrorResponse(
+                    messageSource.getMessage(apiException.messageSource(), new Object[] {"Account", "ID", ((ResourceNotFoundException) ex).getId()}, requestLocale),
+                    apiException.errorCode()
+            )).ofStatus(HttpStatus.NOT_FOUND.value());;
+        }
 
         // Build response body
         var responseBody = response.build();
