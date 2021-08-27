@@ -1,4 +1,4 @@
-package ehroute.identityservice.utilities.app;
+package ehroute.identityservice.utilities.errorhandling;
 
 import java.io.Serializable;
 import java.util.List;

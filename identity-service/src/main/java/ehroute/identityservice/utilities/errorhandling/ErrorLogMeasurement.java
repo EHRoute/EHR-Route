@@ -1,4 +1,4 @@
-package ehroute.identityservice.utilities.app;
+package ehroute.identityservice.utilities.errorhandling;
 
 import java.time.Instant;
 import java.util.Map;

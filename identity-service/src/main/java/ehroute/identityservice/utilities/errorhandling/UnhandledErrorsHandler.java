@@ -1,4 +1,4 @@
-package ehroute.identityservice.utilities.app;
+package ehroute.identityservice.utilities.errorhandling;
 
 import static org.springframework.boot.web.error.ErrorAttributeOptions.*;
 

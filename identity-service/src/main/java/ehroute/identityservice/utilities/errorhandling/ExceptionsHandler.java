@@ -1,4 +1,4 @@
-package ehroute.identityservice.utilities.app;
+package ehroute.identityservice.utilities.errorhandling;
 
 import com.muizz.spring.mediator.payload.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;

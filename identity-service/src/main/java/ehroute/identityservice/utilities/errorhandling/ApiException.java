@@ -1,4 +1,4 @@
-package ehroute.identityservice.utilities.app;
+package ehroute.identityservice.utilities.errorhandling;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
